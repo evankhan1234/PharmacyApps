@@ -1,8 +1,10 @@
-package com.nextgenit.pharmacyapp;
+package com.nextgenit.pharmacyapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.nextgenit.pharmacyapp.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override
