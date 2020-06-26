@@ -1,0 +1,339 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlt_root"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageButton
+                android:id="@+id/btn_header_back_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="3px"
+
+                android:stateListAnimator="@null"
+                android:visibility="visible"
+                app:srcCompat="@drawable/back" />
+            <LinearLayout
+                android:layout_below="@+id/btn_header_back_"
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+
+                android:fitsSystemWindows="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/logo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+
+                        app:srcCompat="@drawable/doctor" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:text="মুঠোফোন"
+                            android:textColor="#333"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:text="প্রেসক্রিপশন ফার্মেসী  "
+                            android:textColor="#333"
+                            android:textSize="19sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="রোগীর নিবন্ধন"
+                    android:textColor="#333"
+                    android:textSize="21sp" />
+
+                <LinearLayout
+                    android:id="@+id/formHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+
+
+                    android:layout_weight="1.0"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+
+                    <EditText
+                        android:id="@+id/edit_text_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/input_bg"
+                        android:drawableLeft="@drawable/ic_baseline_supervised_user_circle_24"
+                        android:drawablePadding="10dp"
+                        android:hint="রোগীর নাম"
+                        android:paddingLeft="39px"
+                        android:paddingTop="39px"
+                        android:paddingRight="39px"
+                        android:paddingBottom="39px"
+                        android:textColorHint="#666"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edit_text_email"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+
+                            android:background="@drawable/input_bg"
+                            android:drawableLeft="@drawable/ic_baseline_data_usage_24"
+                            android:drawablePadding="10dp"
+                            android:hint="বয়স"
+                            android:inputType="textEmailAddress"
+                            android:paddingLeft="39px"
+                            android:paddingTop="39px"
+                            android:paddingRight="39px"
+                            android:paddingBottom="39px"
+                            android:textColorHint="#666"
+                            android:textSize="16sp" />
+
+                        <RadioGroup
+                            android:id="@+id/radioLogin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+
+                            android:layout_gravity="center"
+
+                            android:layout_marginLeft="10dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <RadioButton
+
+                                android:id="@+id/radioAge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20px"
+                                android:tag="35"
+                                android:text="পুরুষ"
+                                android:textSize="35px" />
+
+                            <RadioButton
+                                android:id="@+id/radioBirthdate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50px"
+                                android:tag="35"
+                                android:text="মহিলা  "
+                                android:textSize="35px" />
+
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_dob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="50px"
+                        android:layout_marginTop="20dp"
+                        android:tag="40"
+                        android:text="বৈবাহিক অবস্থা?"
+                        android:textSize="40px"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20px"
+
+                            android:tag="35"
+                            android:text="বিবাহিত"
+                            android:textSize="35px" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50px"
+                            android:tag="35"
+                            android:text="অবিবাহিত"
+                            android:textSize="35px" />
+
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:weightSum="2"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/input_bg"
+                            android:drawableLeft="@drawable/ic_baseline_height_24"
+                            android:drawablePadding="10dp"
+                            android:hint="উচ্চতা"
+                            android:inputType="number"
+
+                            android:paddingLeft="39px"
+                            android:paddingTop="39px"
+                            android:paddingRight="39px"
+                            android:paddingBottom="39px"
+                            android:textColorHint="#666"
+                            android:textSize="16sp" />
+                        <EditText
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/input_bg"
+                            android:drawableLeft="@drawable/ic_baseline_line_weight_24"
+                            android:drawablePadding="10dp"
+                            android:hint="ওজন "
+                            android:inputType="number"
+                            android:paddingLeft="39px"
+                            android:paddingTop="39px"
+                            android:paddingRight="39px"
+                            android:paddingBottom="39px"
+                            android:textColorHint="#666"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/input_bg"
+                        android:drawableLeft="@drawable/ic_baseline_toc_24"
+                        android:drawablePadding="10dp"
+                        android:hint="পেশা "
+                        android:paddingLeft="39px"
+                        android:paddingTop="39px"
+                        android:paddingRight="39px"
+                        android:paddingBottom="39px"
+                        android:textColorHint="#666"
+                        android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/edit_text_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/input_bg"
+                        android:drawableLeft="@drawable/ic_baseline_smartphone_24"
+                        android:drawablePadding="10dp"
+                        android:hint="মুঠোফোন"
+                        android:inputType="number"
+
+                        android:paddingLeft="39px"
+                        android:paddingTop="39px"
+                        android:paddingRight="39px"
+                        android:paddingBottom="39px"
+                        android:textColorHint="#666"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:gravity="left"
+                        android:layout_gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/input_bg"
+                        android:drawablePadding="10dp"
+                        android:hint="রোগের বিবরণ"
+                        android:paddingLeft="39px"
+                        android:paddingTop="39px"
+                        android:paddingRight="39px"
+                        android:paddingBottom="39px"
+                        android:textColorHint="#666"
+                        android:textSize="16sp" />
+
+
+                    <Button
+                        android:id="@+id/btn_ok"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/input_bg"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:stateListAnimator="@null"
+                        android:text="নিবন্ধন"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/address_looking_up"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
