@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.nextgenit.pharmacyapp.NetworkModel.PatientList;
 import com.nextgenit.pharmacyapp.R;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
 
     private Activity mActivity = null;
-    private ArrayList<String> messageEntities;
+    private ArrayList<PatientList> messageEntities;
 
-    public DashboardAdapter(Activity activity, ArrayList<String> messageEntitie) {
+    public DashboardAdapter(Activity activity, ArrayList<PatientList> messageEntitie) {
         mActivity = activity;
         messageEntities = messageEntitie;
 
@@ -41,9 +42,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
 
         Log.e("Evan", "SDfs" + messageEntities.get(position));
-        // holder.btn_Dashboard.setHint(messageEntities.get(position).DashboardName);
-
-        Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
+         holder.tv_name.setText(messageEntities.get(position).patient_name);
+         Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
 
     }
 
@@ -57,12 +57,14 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
 
         private CircleImageView user_icon;
+        private TextView tv_name;
 
 
         public DashboardListiewHolder(View itemView) {
             super(itemView);
 
             user_icon = itemView.findViewById(R.id.user_icon);
+            tv_name = itemView.findViewById(R.id.tv_name);
 
 
         }

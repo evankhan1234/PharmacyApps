@@ -2,15 +2,186 @@ package com.nextgenit.pharmacyapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.nextgenit.pharmacyapp.Network.IRetrofitApi;
+import com.nextgenit.pharmacyapp.NetworkModel.LoginResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.RegistrationResponses;
 import com.nextgenit.pharmacyapp.R;
+import com.nextgenit.pharmacyapp.Utils.Common;
+import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
+import com.nextgenit.pharmacyapp.Utils.Util;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class RegistrationActivity extends AppCompatActivity {
-
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    IRetrofitApi mService;
+    ImageView show_pass;
+    ImageView show_confirm_pass;
+    EditText et_password;
+    EditText et_confirm_password;
+    EditText et_name;
+    EditText et_email;
+    EditText et_phone;
+    Button btn_registration;
+    TextView tv_login;
+    RelativeLayout rlt_root;
+    boolean test = true;
+    boolean test_confirm = true;
+    ProgressBar progress_bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        mService= Common.getApiXact();
+        tv_login=findViewById(R.id.tv_login);
+        et_name=findViewById(R.id.et_name);
+        btn_registration=findViewById(R.id.btn_registration);
+        show_pass=findViewById(R.id.show_pass);
+        show_confirm_pass=findViewById(R.id.show_confirm_pass);
+        et_password=findViewById(R.id.et_password);
+        et_confirm_password=findViewById(R.id.et_confirm_password);
+        progress_bar=findViewById(R.id.progress_bar);
+        et_email=findViewById(R.id.et_email);
+        et_phone=findViewById(R.id.et_phone);
+        rlt_root=findViewById(R.id.rlt_root);
+        tv_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+                finish();
+            }
+        });
+        show_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int cursorPosition = et_password.getSelectionStart();
+
+                if (test) {
+                    Log.e("show", "show");
+
+                    test = false;
+                    et_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    show_pass.setImageDrawable(getResources().getDrawable(R.drawable.hidden_password));
+
+                } else {
+                    Log.e("hidden", "hidden");
+                    show_pass.setImageDrawable(getResources().getDrawable(R.drawable.show_password));
+                    test = true;
+                    et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                et_password.setSelection(cursorPosition);
+            }
+        });
+        show_confirm_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int cursorPosition = et_confirm_password.getSelectionStart();
+
+                if (test_confirm) {
+                    Log.e("show", "show");
+
+                    test_confirm = false;
+                    et_confirm_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    show_pass.setImageDrawable(getResources().getDrawable(R.drawable.hidden_password));
+
+                } else {
+                    Log.e("hidden", "hidden");
+                    show_pass.setImageDrawable(getResources().getDrawable(R.drawable.show_password));
+                    test_confirm = true;
+                    et_confirm_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                et_confirm_password.setSelection(cursorPosition);
+            }
+        });
+        btn_registration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name=et_name.getText().toString();
+                String email=et_email.getText().toString();
+                String phone=et_phone.getText().toString();
+                String password=et_password.getText().toString();
+                String confirm_password=et_confirm_password.getText().toString();
+                if (name.equals("") && password.equals("") && email.equals("") && phone.equals("") && confirm_password.equals("") ){
+
+                    Util.snackBar("All Data Needed",rlt_root);
+                }
+                else if (email.equals("") ){
+                    Util.snackBar("Email is Empty",rlt_root);
+                }
+                else if (phone.equals("") ){
+                    Util.snackBar("Phone is Empty",rlt_root);
+                }
+                else if (password.equals("") ){
+                    Util.snackBar("Password is Empty",rlt_root);
+                }
+                else if (confirm_password.equals("") ){
+                    Util.snackBar("Confirm Password is Empty",rlt_root);
+                }
+                else{
+                    progress_bar.setVisibility(View.VISIBLE);
+                    compositeDisposable.add(mService.postRegistration(name,email,phone,password,confirm_password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<RegistrationResponses>() {
+                        @Override
+                        public void accept(RegistrationResponses registrationResponses) throws Exception {
+                            Log.e("ff", "dgg" + new Gson().toJson(registrationResponses));
+
+                            progress_bar.setVisibility(View.GONE);
+                            if (registrationResponses.status.equals("success")) {
+                            //    SharedPreferenceUtil.saveShared(RegistrationActivity.this, SharedPreferenceUtil.TYPE_USER_ID, registrationResponses.user.user_no_pk + "");
+                                Toast.makeText(RegistrationActivity.this, "Successfully Registration", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+                                finish();
+
+                            }
+                            else if (registrationResponses.status.equals("failed")){
+                                Toast.makeText(RegistrationActivity.this, registrationResponses.message, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            progress_bar.setVisibility(View.GONE);
+                            Log.e("ff", "dgg" + throwable.getMessage());
+                            Toast.makeText(RegistrationActivity.this, "Unauthorized", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }));
+                }
+
+
+            }
+        });
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
     }
 }
