@@ -73,7 +73,7 @@
 
 
                     <EditText
-                        android:id="@+id/edit_text_email"
+                        android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -98,7 +98,7 @@
                         android:background="@drawable/input_bg">
 
                         <EditText
-                            android:id="@+id/edit_text_password"
+                            android:id="@+id/et_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
@@ -181,4 +181,11 @@
                 />
         </RelativeLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="gone" />
 </RelativeLayout>
