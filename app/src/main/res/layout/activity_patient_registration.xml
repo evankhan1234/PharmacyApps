@@ -106,7 +106,7 @@
 
 
                     <EditText
-                        android:id="@+id/edit_text_name"
+                        android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -128,7 +128,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/edit_text_email"
+                            android:id="@+id/et_age"
                             android:layout_width="150dp"
                             android:layout_height="wrap_content"
 
@@ -136,7 +136,7 @@
                             android:drawableLeft="@drawable/ic_baseline_data_usage_24"
                             android:drawablePadding="10dp"
                             android:hint="বয়স"
-                            android:inputType="textEmailAddress"
+                            android:inputType="number"
                             android:paddingLeft="39px"
                             android:paddingTop="39px"
                             android:paddingRight="39px"
@@ -158,7 +158,8 @@
 
                             <RadioButton
 
-                                android:id="@+id/radioAge"
+                                android:checked="true"
+                                android:id="@+id/radio_men"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20px"
@@ -167,7 +168,7 @@
                                 android:textSize="35px" />
 
                             <RadioButton
-                                android:id="@+id/radioBirthdate"
+                                android:id="@+id/radio_women"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="50px"
@@ -199,6 +200,7 @@
                         android:visibility="visible">
 
                         <RadioButton
+                            android:id="@+id/radio_married"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20px"
@@ -208,6 +210,8 @@
                             android:textSize="35px" />
 
                         <RadioButton
+                            android:checked="true"
+                            android:id="@+id/radio_unmarried"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="50px"
@@ -223,6 +227,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <EditText
+                            android:id="@+id/et_height"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
@@ -231,7 +236,7 @@
                             android:drawableLeft="@drawable/ic_baseline_height_24"
                             android:drawablePadding="10dp"
                             android:hint="উচ্চতা"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
 
                             android:paddingLeft="39px"
                             android:paddingTop="39px"
@@ -240,6 +245,7 @@
                             android:textColorHint="#666"
                             android:textSize="16sp" />
                         <EditText
+                            android:id="@+id/et_weight"
                             android:layout_marginLeft="5dp"
                             android:layout_width="0dp"
                             android:layout_weight="1"
@@ -249,7 +255,7 @@
                             android:drawableLeft="@drawable/ic_baseline_line_weight_24"
                             android:drawablePadding="10dp"
                             android:hint="ওজন "
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingLeft="39px"
                             android:paddingTop="39px"
                             android:paddingRight="39px"
@@ -257,23 +263,24 @@
                             android:textColorHint="#666"
                             android:textSize="16sp" />
                     </LinearLayout>
-
-                    <EditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_division"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="left"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/input_bg"
-                        android:drawableLeft="@drawable/ic_baseline_toc_24"
-                        android:drawablePadding="10dp"
-                        android:hint="পেশা "
-                        android:paddingLeft="39px"
-                        android:paddingTop="39px"
-                        android:paddingRight="39px"
-                        android:paddingBottom="39px"
-                        android:textColorHint="#666"
-                        android:textSize="16sp" />
+                        android:text="পেশা"
+                        android:textSize="16sp"
+                        />
+                    <Spinner
+                        android:id="@+id/spinner_occupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/test"
+                        android:visibility="visible" />
                     <EditText
-                        android:id="@+id/edit_text_phone"
+                        android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -291,6 +298,7 @@
                         android:textSize="16sp" />
 
                     <EditText
+                        android:id="@+id/et_description"
                         android:gravity="left"
                         android:layout_gravity="left"
                         android:layout_width="match_parent"
@@ -336,4 +344,11 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="gone" />
 </RelativeLayout>

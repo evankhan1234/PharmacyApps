@@ -1,8 +1,11 @@
 package com.nextgenit.pharmacyapp.NetworkModel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class PatientList {
+public class PatientList implements Parcelable {
     @SerializedName("patient_no_pk")
     public int  patient_no_pk;
     @SerializedName("patient_code")
@@ -37,4 +40,62 @@ public class PatientList {
     public String  nationality;
     @SerializedName("national_id")
     public String  national_id;
+
+    protected PatientList(Parcel in) {
+        patient_no_pk = in.readInt();
+        patient_code = in.readString();
+        patient_name = in.readString();
+        au_entry_at = in.readString();
+        au_update_at = in.readString();
+        email = in.readString();
+        mobile1 = in.readString();
+        mobile2 = in.readString();
+        phone_tnt = in.readString();
+        age = in.readString();
+        dob = in.readString();
+        gender = in.readString();
+        gender_txt = in.readString();
+        marital_status = in.readString();
+        marital_status_txt = in.readString();
+        nationality = in.readString();
+        national_id = in.readString();
+    }
+
+    public static final Creator<PatientList> CREATOR = new Creator<PatientList>() {
+        @Override
+        public PatientList createFromParcel(Parcel in) {
+            return new PatientList(in);
+        }
+
+        @Override
+        public PatientList[] newArray(int size) {
+            return new PatientList[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(patient_no_pk);
+        dest.writeString(patient_code);
+        dest.writeString(patient_name);
+        dest.writeString(au_entry_at);
+        dest.writeString(au_update_at);
+        dest.writeString(email);
+        dest.writeString(mobile1);
+        dest.writeString(mobile2);
+        dest.writeString(phone_tnt);
+        dest.writeString(age);
+        dest.writeString(dob);
+        dest.writeString(gender);
+        dest.writeString(gender_txt);
+        dest.writeString(marital_status);
+        dest.writeString(marital_status_txt);
+        dest.writeString(nationality);
+        dest.writeString(national_id);
+    }
 }
