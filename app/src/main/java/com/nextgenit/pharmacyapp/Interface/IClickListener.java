@@ -1,5 +1,7 @@
 package com.nextgenit.pharmacyapp.Interface;
 
+import com.nextgenit.pharmacyapp.NetworkModel.PatientList;
+
 public interface IClickListener {
-    void onTest();
+    void onView(PatientList patientList);
 }
