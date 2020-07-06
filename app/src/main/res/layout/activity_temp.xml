@@ -28,8 +28,7 @@
 
 
                 <ImageView
-                    android:scaleType="fitXY"
-                    android:src="@drawable/login_bg"
+                    android:src="@drawable/bg"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"/>
@@ -43,7 +42,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:hint="Enter Email Address"
-                    android:background="@drawable/edit_text_capsule_gray"
+                    android:background="@drawable/edit_text_capsule"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"/>
                 <RelativeLayout
@@ -58,7 +57,7 @@
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="65dp"
-                        android:background="@drawable/edit_text_capsule_gray"
+                        android:background="@drawable/edit_text_capsule"
                         android:drawableLeft="@drawable/password"
                         android:drawablePadding="10dp"
                         android:hint="Enter Password"
@@ -70,8 +69,8 @@
                     <ImageView
 
                         android:id="@+id/show_pass"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:layout_centerVertical="true"

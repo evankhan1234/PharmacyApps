@@ -58,6 +58,29 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
             }
         });
+
+        et_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_email.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_email.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_email.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+        et_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_email.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_email.setTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_password.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_password.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+        });
         show_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -19,12 +19,16 @@ import com.google.gson.Gson;
 import com.nextgenit.pharmacyapp.Adapter.DashboardAdapter;
 import com.nextgenit.pharmacyapp.Interface.IClickListener;
 import com.nextgenit.pharmacyapp.Network.IRetrofitApi;
+import com.nextgenit.pharmacyapp.NetworkModel.AppointmentResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.PatientList;
 import com.nextgenit.pharmacyapp.NetworkModel.PatientListResponses;
 import com.nextgenit.pharmacyapp.R;
 import com.nextgenit.pharmacyapp.Utils.Common;
+import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -128,12 +132,36 @@ public class DashboardActivity extends AppCompatActivity {
     IClickListener iClickListener = new IClickListener() {
         @Override
         public void onView(PatientList patientList) {
-            Intent intent = new Intent(DashboardActivity.this, SpecialistActivity.class);
-            intent.putExtra("patient", patientList);
-            startActivity(intent);
+            load(patientList);
 
         }
     };
+    private void load(final PatientList patientList) {
+        progress_bar.setVisibility(View.VISIBLE);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date(System.currentTimeMillis());
+        String currentDate = formatter.format(date);
+        int currentId= Integer.parseInt(SharedPreferenceUtil.getUserID(DashboardActivity.this));
+        compositeDisposable.add(mService.postPatientAppointment(patientList.patient_no_pk,currentDate,currentId).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<AppointmentResponses>() {
+            @Override
+            public void accept(AppointmentResponses appointmentResponses) throws Exception {
+                Log.e("study", "study" + new Gson().toJson(appointmentResponses));
+                Intent intent = new Intent(DashboardActivity.this, DoctorViewActivity.class);
+                intent.putExtra("patient", patientList);
+                intent.putExtra("appointment_id", appointmentResponses.data_list.get(0).appointment_id);
+                startActivity(intent);
+                progress_bar.setVisibility(View.GONE);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e("study", "study" + throwable.getMessage());
+                progress_bar.setVisibility(View.GONE);
+            }
+        }));
+
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

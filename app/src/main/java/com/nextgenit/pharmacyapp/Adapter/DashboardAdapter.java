@@ -47,11 +47,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         Log.e("Evan", "SDfs" + messageEntities.get(position));
          holder.tv_name.setText(messageEntities.get(position).patient_name);
          holder.tv_phone_number.setText(messageEntities.get(position).mobile1);
-         holder.tv_gender.setText(messageEntities.get(position).gender_txt);
-         holder.tv_age.setText("("+messageEntities.get(position).age+")");
-         Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
+         holder.tv_age.setText("Age - "+messageEntities.get(position).age+","+messageEntities.get(position).gender_txt);
+       //  Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
 
-         holder.img_next.setOnClickListener(new View.OnClickListener() {
+         holder.itemView.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  iClickListener.onView(messageEntities.get(position));
@@ -69,11 +68,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
 
         private CircleImageView user_icon;
-        private ImageView img_next;
         private TextView tv_name;
         private TextView tv_age;
         private TextView tv_phone_number;
-        private TextView tv_gender;
+
 
 
         public DashboardListiewHolder(View itemView) {
@@ -83,8 +81,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_age = itemView.findViewById(R.id.tv_age);
             tv_phone_number = itemView.findViewById(R.id.tv_phone_number);
-            tv_gender = itemView.findViewById(R.id.tv_gender);
-            img_next = itemView.findViewById(R.id.img_next);
+
 
 
         }

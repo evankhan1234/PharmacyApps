@@ -58,7 +58,7 @@ public class DoctorListActivity extends AppCompatActivity {
         specialist = getIntent().getExtras().getParcelable("foo");
         patientList = getIntent().getExtras().getParcelable("patient");
         tv_name.setText(specialist.specialization_name);
-        tv_count.setText(String.valueOf(specialist.no_of_doctor));
+        tv_count.setText("("+String.valueOf(specialist.no_of_doctor)+")");
         Log.e("users", "users" + new Gson().toJson(specialist));
         loadData(String.valueOf(specialist.specialization_id));
     }
@@ -86,7 +86,11 @@ public class DoctorListActivity extends AppCompatActivity {
     IDoctorViewListener doctorViewListener= new IDoctorViewListener() {
         @Override
         public void show(DoctorList doctorList) {
-
+            Intent intent = new Intent(DoctorListActivity.this, DoctorViewActivity.class);
+            intent.putExtra("foo", doctorList);
+            intent.putExtra("patient", patientList);
+            intent.putExtra("specialist", specialist);
+            startActivity(intent);
         }
     };
 
