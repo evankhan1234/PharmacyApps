@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#fafafa">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,80 +17,68 @@
             android:layout_height="match_parent"
             android:background="@color/white">
 
-            <ImageButton
-                android:id="@+id/btn_header_back_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:background="@color/transparent"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:paddingBottom="3px"
 
-                android:stateListAnimator="@null"
-                android:visibility="visible"
-                app:srcCompat="@drawable/back" />
+
             <LinearLayout
-                android:layout_below="@+id/btn_header_back_"
                 android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/btn_header_back_"
                 android:background="@color/white"
 
                 android:fitsSystemWindows="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
-
-                <LinearLayout
+                <RelativeLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/logo"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-
-                        app:srcCompat="@drawable/doctor" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="20dp"
-                            android:text="মুঠোফোন"
-                            android:textColor="#333"
-                            android:textSize="25sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="10dp"
-                            android:text="প্রেসক্রিপশন ফার্মেসী  "
-                            android:textColor="#333"
-                            android:textSize="19sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                        android:id="@+id/img_close"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/close_cancel_black"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"/>
+                    <ImageView
+                        android:id="@+id/img_log_out"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/logout"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Let's Register a Patient"
+                    android:textColor="#333"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="রোগীর নিবন্ধন"
-                    android:textColor="#333"
-                    android:textSize="21sp" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Create a patient account to get"
+                    android:textColor="#b8b8b8"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="an appointment"
+                    android:textColor="#b8b8b8"
+                    android:textStyle="bold"
+                    android:textSize="17sp" />
 
                 <LinearLayout
                     android:id="@+id/formHolder"
@@ -108,18 +96,25 @@
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="65dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/input_bg"
+                        android:background="@drawable/edit_text_capsule_gray"
                         android:drawableLeft="@drawable/ic_baseline_supervised_user_circle_24"
                         android:drawablePadding="10dp"
-                        android:hint="রোগীর নাম"
-                        android:paddingLeft="39px"
-                        android:paddingTop="39px"
-                        android:paddingRight="39px"
-                        android:paddingBottom="39px"
-                        android:textColorHint="#666"
-                        android:textSize="16sp" />
+                        android:hint="Enter Name"
+                        android:paddingLeft="20dp" />
+
+                    <EditText
+                        android:id="@+id/et_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/edit_text_capsule_gray"
+                        android:drawableLeft="@drawable/ic_baseline_data_usage_24"
+                        android:drawablePadding="10dp"
+                        android:hint="Enter Age"
+                        android:inputType="number"
+                        android:paddingLeft="20dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -127,22 +122,6 @@
                         android:layout_marginTop="20dp"
                         android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/et_age"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-
-                            android:background="@drawable/input_bg"
-                            android:drawableLeft="@drawable/ic_baseline_data_usage_24"
-                            android:drawablePadding="10dp"
-                            android:hint="বয়স"
-                            android:inputType="number"
-                            android:paddingLeft="39px"
-                            android:paddingTop="39px"
-                            android:paddingRight="39px"
-                            android:paddingBottom="39px"
-                            android:textColorHint="#666"
-                            android:textSize="16sp" />
 
                         <RadioGroup
                             android:id="@+id/radioLogin"
@@ -150,164 +129,149 @@
                             android:layout_height="wrap_content"
 
 
-                            android:layout_gravity="center"
-
                             android:layout_marginLeft="10dp"
                             android:orientation="horizontal"
                             android:visibility="visible">
 
                             <RadioButton
-
-                                android:checked="true"
                                 android:id="@+id/radio_men"
-                                android:layout_width="wrap_content"
+                                android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="20px"
-                                android:tag="35"
-                                android:text="পুরুষ"
-                                android:textSize="35px" />
+                                android:layout_marginLeft="30dp"
+
+                                android:buttonTint="@color/gray_for"
+                                android:checked="true"
+                                android:text="Male"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
 
                             <RadioButton
                                 android:id="@+id/radio_women"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="50px"
-                                android:tag="35"
-                                android:text="মহিলা  "
-                                android:textSize="35px" />
+
+                                android:buttonTint="@color/gray_for"
+                                android:text="Female"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
 
                         </RadioGroup>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_dob"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:layout_marginLeft="50px"
-                        android:layout_marginTop="20dp"
-                        android:tag="40"
-                        android:text="বৈবাহিক অবস্থা?"
-                        android:textSize="40px"
-                        android:textStyle="bold" />
 
                     <RadioGroup
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
+
+
                         android:orientation="horizontal"
                         android:visibility="visible">
 
                         <RadioButton
                             android:id="@+id/radio_married"
-                            android:layout_width="wrap_content"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="20px"
+                            android:layout_marginLeft="40dp"
 
-                            android:tag="35"
-                            android:text="বিবাহিত"
-                            android:textSize="35px" />
+                            android:buttonTint="@color/gray_for"
+                            android:text="Married"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
                         <RadioButton
-                            android:checked="true"
                             android:id="@+id/radio_unmarried"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="50px"
-                            android:tag="35"
-                            android:text="অবিবাহিত"
-                            android:textSize="35px" />
+
+                            android:buttonTint="@color/gray_for"
+                            android:checked="true"
+                            android:text="Unmarried"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
                     </RadioGroup>
 
                     <LinearLayout
-                        android:weightSum="2"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
                         <EditText
                             android:id="@+id/et_height"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
+                            android:layout_height="65dp"
                             android:layout_marginTop="20dp"
-                            android:background="@drawable/input_bg"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_text_capsule_gray"
                             android:drawableLeft="@drawable/ic_baseline_height_24"
                             android:drawablePadding="10dp"
-                            android:hint="উচ্চতা"
+                            android:hint="Enter Height"
                             android:inputType="numberDecimal"
+                            android:paddingLeft="20dp" />
 
-                            android:paddingLeft="39px"
-                            android:paddingTop="39px"
-                            android:paddingRight="39px"
-                            android:paddingBottom="39px"
-                            android:textColorHint="#666"
-                            android:textSize="16sp" />
                         <EditText
                             android:id="@+id/et_weight"
-                            android:layout_marginLeft="5dp"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
+                            android:layout_height="65dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="20dp"
-                            android:background="@drawable/input_bg"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_text_capsule_gray"
                             android:drawableLeft="@drawable/ic_baseline_line_weight_24"
                             android:drawablePadding="10dp"
-                            android:hint="ওজন "
+                            android:hint="Enter Weight"
                             android:inputType="numberDecimal"
-                            android:paddingLeft="39px"
-                            android:paddingTop="39px"
-                            android:paddingRight="39px"
-                            android:paddingBottom="39px"
-                            android:textColorHint="#666"
-                            android:textSize="16sp" />
+                            android:paddingLeft="20dp" />
+
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/tv_division"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:layout_marginTop="20dp"
-                        android:text="পেশা"
-                        android:textSize="16sp"
-                        />
+                        android:text="Occupation"
+                        android:textSize="16sp" />
+
                     <Spinner
                         android:id="@+id/spinner_occupation"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/test"
                         android:visibility="visible" />
+
                     <EditText
                         android:id="@+id/et_phone"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="65dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/input_bg"
+                        android:background="@drawable/edit_text_capsule_gray"
                         android:drawableLeft="@drawable/ic_baseline_smartphone_24"
                         android:drawablePadding="10dp"
-                        android:hint="মুঠোফোন"
+                        android:hint="Enter Phone Number"
                         android:inputType="number"
+                        android:paddingLeft="20dp" />
 
-                        android:paddingLeft="39px"
-                        android:paddingTop="39px"
-                        android:paddingRight="39px"
-                        android:paddingBottom="39px"
-                        android:textColorHint="#666"
-                        android:textSize="16sp" />
 
                     <EditText
+
+                        android:drawablePadding="10dp"
                         android:id="@+id/et_description"
-                        android:gravity="left"
-                        android:layout_gravity="left"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="100dp"
+                        android:layout_gravity="left"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/input_bg"
-                        android:drawablePadding="10dp"
-                        android:hint="রোগের বিবরণ"
+                        android:background="@drawable/edit_text_description"
+                        android:gravity="left"
+                        android:hint="Description of disease"
+                        android:minHeight="150dp"
                         android:paddingLeft="39px"
                         android:paddingTop="39px"
                         android:paddingRight="39px"
@@ -315,21 +279,43 @@
                         android:textColorHint="#666"
                         android:textSize="16sp" />
 
-
-                    <Button
-                        android:id="@+id/btn_ok"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                    <LinearLayout
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_bg"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:stateListAnimator="@null"
-                        android:text="নিবন্ধন"
-                        android:textColor="#fff"
-                        android:textSize="15sp" />
-                </LinearLayout>
+                        android:weightSum="2"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/btn_ok"
+                            android:text="Create"
+                            android:textSize="21sp"
+                            android:textColor="#fafafa"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/capsule_button"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:id="@+id/btn_cancel"
+                            android:text="Cancel"
+                            android:textSize="21sp"
+                            android:textColor="#fafafa"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:backgroundTint="#f41e41"
+                            android:background="@drawable/capsule_button"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -344,6 +330,7 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </ScrollView>
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"

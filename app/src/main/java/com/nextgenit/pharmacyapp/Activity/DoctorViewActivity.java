@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,8 +34,10 @@ import io.reactivex.schedulers.Schedulers;
 public class DoctorViewActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IRetrofitApi mService;
-    CircleImageView patient_icon;
-    CircleImageView user_icon;
+
+    ImageView user_icon;
+    ImageView img_close;
+    ImageView img_log_out;
     TextView tv_patient_name;
 
     TextView tv_name;
@@ -50,7 +53,7 @@ public class DoctorViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_view);
         mService= Common.getApiXact();
-        patient_icon=findViewById(R.id.patient_icon);
+
         tv_doctor_name=findViewById(R.id.tv_doctor_name);
         user_icon=findViewById(R.id.user_icon);
         tv_patient_name=findViewById(R.id.tv_patient_name);
@@ -59,6 +62,8 @@ public class DoctorViewActivity extends AppCompatActivity {
         tv_gender=findViewById(R.id.tv_gender);
         tv_age=findViewById(R.id.tv_age);
         progress_bar=findViewById(R.id.progress_bar);
+        img_close=findViewById(R.id.img_close);
+        img_log_out=findViewById(R.id.img_log_out);
         appointmentId = getIntent().getIntExtra("appointment_id",0);
        // specialist = getIntent().getExtras().getParcelable("specialist");
         patientList = getIntent().getExtras().getParcelable("patient");
@@ -67,11 +72,23 @@ public class DoctorViewActivity extends AppCompatActivity {
         tv_patient_name.setText(patientList.patient_name);
         tv_phone_number.setText(patientList.mobile1);
         tv_gender.setText(patientList.gender_txt);
-
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAffinity();
+            }
+        });
+        img_log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DoctorViewActivity.this,LoginActivity.class));
+                SharedPreferenceUtil.saveShared(DoctorViewActivity.this, SharedPreferenceUtil.TYPE_USER_ID,  "");
+                finish();
+            }
+        });
         tv_age.setText("("+patientList.age+")");
-        Glide.with(this).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(user_icon);
+        Glide.with(this).load("https://nationaltoday.com/wp-content/uploads/2019/03/national-doctors-day.jpg").placeholder(R.mipmap.ic_launcher).into(user_icon);
 
-        Glide.with(this).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(patient_icon);
 
     }
     private void load() {

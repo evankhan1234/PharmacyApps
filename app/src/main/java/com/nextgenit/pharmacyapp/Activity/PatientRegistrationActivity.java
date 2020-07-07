@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -28,6 +29,7 @@ import com.nextgenit.pharmacyapp.NetworkModel.PatientRegistrationResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.RegistrationResponses;
 import com.nextgenit.pharmacyapp.R;
 import com.nextgenit.pharmacyapp.Utils.Common;
+import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
 import com.nextgenit.pharmacyapp.Utils.Util;
 
 import java.util.ArrayList;
@@ -40,7 +42,6 @@ import io.reactivex.schedulers.Schedulers;
 public class PatientRegistrationActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IRetrofitApi mService;
-    private ImageButton btn_header_back_;
     ProgressBar progress_bar;
     RelativeLayout rlt_root;
     EditText et_name;
@@ -54,18 +55,23 @@ public class PatientRegistrationActivity extends AppCompatActivity {
     RadioButton radio_married;
     RadioButton radio_unmarried;
     Button btn_ok;
+    Button btn_cancel;
     Spinner spinner_occupation;
     ArrayAdapter<Occupation> occupationArrayAdapter;
     String occupationId;
     String maritalStatus="";
     String genderStatus="";
+    ImageView img_close;
+    ImageView img_log_out;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_registration);
         mService= Common.getApiXact();
         spinner_occupation=findViewById(R.id.spinner_occupation);
-        btn_header_back_=findViewById(R.id.btn_header_back_);
+        img_close=findViewById(R.id.img_close);
+        img_log_out=findViewById(R.id.img_log_out);
+        btn_cancel=findViewById(R.id.btn_cancel);
         progress_bar=findViewById(R.id.progress_bar);
         rlt_root=findViewById(R.id.rlt_root);
         et_name=findViewById(R.id.et_name);
@@ -79,14 +85,177 @@ public class PatientRegistrationActivity extends AppCompatActivity {
         et_phone=findViewById(R.id.et_phone);
         et_description=findViewById(R.id.et_description);
         btn_ok=findViewById(R.id.btn_ok);
-        btn_header_back_.setOnClickListener(new View.OnClickListener() {
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAffinity();
+            }
+        });
+        img_log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PatientRegistrationActivity.this,LoginActivity.class));
+                SharedPreferenceUtil.saveShared(PatientRegistrationActivity.this, SharedPreferenceUtil.TYPE_USER_ID,  "");
+                finish();
+            }
+        });
         loadData();
+
+        et_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_age.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_height.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_weight.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_description.setBackground(getResources().getDrawable(R.drawable.edit_text_description));
+
+                et_name.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_name.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_age.setTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+
+
+        et_age.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_age.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_height.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_weight.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_description.setBackground(getResources().getDrawable(R.drawable.edit_text_description));
+
+                et_age.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_age.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+
+
+        et_height.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_height.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_age.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_weight.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_description.setBackground(getResources().getDrawable(R.drawable.edit_text_description));
+
+                et_height.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_height.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+
+        et_weight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_weight.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_age.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_height.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_description.setBackground(getResources().getDrawable(R.drawable.edit_text_description));
+
+                et_weight.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_weight.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+        et_phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_age.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_height.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_weight.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_description.setBackground(getResources().getDrawable(R.drawable.edit_text_description));
+
+                et_phone.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_phone.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setTextColor(getResources().getColor(R.color.gray_for));
+                et_description.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+        et_description.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_description.setBackground(getResources().getDrawable(R.drawable.edit_text_description_color));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_age.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_height.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_weight.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_description));
+
+                et_description.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_description.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setTextColor(getResources().getColor(R.color.gray_for));
+                et_age.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setTextColor(getResources().getColor(R.color.gray_for));
+                et_height.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setTextColor(getResources().getColor(R.color.gray_for));
+                et_weight.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
         spinner_occupation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

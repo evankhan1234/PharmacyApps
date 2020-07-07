@@ -11,7 +11,7 @@
 
         android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="145dp"
         android:background="@drawable/linear_layout">
 
 
@@ -37,18 +37,21 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/img_close"
                         android:layout_alignParentLeft="true"
-                        android:src="@drawable/home"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
+                        android:src="@drawable/close_cancel_white"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"/>
                     <ImageView
+                        android:id="@+id/img_log_out"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/box"
+                        android:src="@drawable/logout_white"
                         android:layout_width="30dp"
                         android:layout_height="30dp"/>
                 </RelativeLayout>
 
                 <TextView
+                    android:layout_marginTop="-23dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -60,20 +63,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginRight="20dp"
                     android:background="@color/white" />
 
                 <EditText
                     android:id="@+id/edit_content"
                     android:layout_width="match_parent"
-                    android:layout_height="140px"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/edit_white"
                     android:drawableRight="@drawable/icon_search"
                     android:drawablePadding="25px"
+
                     android:hint="Please enter a search word"
                     android:inputType="text|textNoSuggestions"
                     android:paddingLeft="40px"
@@ -103,6 +107,7 @@
             android:layout_below="@+id/card_view"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
+            card_view:listitem="@layout/layout_dashboard_list"
             android:layout_marginRight="10dp"
             android:visibility="visible" />
 
@@ -121,7 +126,7 @@
             android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="65dp"
+            android:layout_marginRight="25dp"
             android:layout_marginBottom="20dp"
             android:alpha="1.5"
             android:backgroundTint="@color/colorPrimary"
