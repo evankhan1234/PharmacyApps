@@ -7,20 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="0px"
     android:clipToPadding="false"
-    android:elevation="50px">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
-
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        card_view:cardBackgroundColor="#fafafa"
-        card_view:cardCornerRadius="5dp"
-
-        card_view:cardElevation="5dp"
-        card_view:cardUseCompatPadding="true">
+    >
 
         <LinearLayout
 
@@ -28,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5px"
-            android:layout_marginTop="5px"
+
             android:layout_marginRight="5px"
 
 
@@ -48,30 +35,31 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_alignParentLeft="true"
                     android:id="@+id/user_icon"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:src="@drawable/person"
                     app:civ_border_color="@color/colorPrimary"
-                    app:civ_border_width="3dp"
+                    app:civ_border_width="4dp"
                     />
 
 
                 <LinearLayout
+                    android:layout_centerInParent="true"
                     android:layout_toRightOf="@id/user_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_marginTop="10dp"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
+                            android:textStyle="bold"
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -120,10 +108,12 @@
 
 
             <View
+                android:layout_marginTop="5dp"
+                android:background="#b8b8b8"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="2dp" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

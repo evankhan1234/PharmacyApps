@@ -40,12 +40,14 @@ public class LoginActivity extends AppCompatActivity {
     ImageView show_pass;
     RelativeLayout rlt_root;
     boolean test = true;
+    ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mService= Common.getApiXact();
         show_pass=findViewById(R.id.show_pass);
+        img=findViewById(R.id.img);
         tv_sign_up=findViewById(R.id.tv_sign_up);
         progress_bar=findViewById(R.id.progress_bar);
         btn_login=findViewById(R.id.btn_login);
@@ -58,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
             }
         });
+        img.setImageDrawable(getResources().getDrawable(R.drawable.loginbg));
 
         et_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

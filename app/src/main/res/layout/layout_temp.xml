@@ -1,26 +1,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlt_root"
-    android:background="@color/white"
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ScrollView
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:background="@color/white"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
             <LinearLayout
-                android:background="@color/white"
 
                 android:id="@+id/layout"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
 
                 android:fitsSystemWindows="true"
                 android:focusableInTouchMode="true"
@@ -28,28 +31,55 @@
 
 
                 <ImageView
-                    android:scaleType="fitXY"
-                    android:src="@drawable/bg"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="450dp">
 
-                </ImageView>
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:orientation="vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/loginbg" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+                    android:layout_marginTop="-30dp"
+                    android:layout_gravity="right"
+                    android:id="@+id/btn_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="10dp"
+                    android:alpha="1.5"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/pho"
+                    android:visibility="visible" />
+                <RelativeLayout
+
+                    android:id="@+id/relative"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="-330dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_close"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/close_cancel_white"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"/>
+                    <ImageView
+                        android:id="@+id/img_log_out"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/logout_white"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                </RelativeLayout>
+
+
 
 
             </LinearLayout>
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/address_looking_up"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                />
         </RelativeLayout>
     </ScrollView>
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"

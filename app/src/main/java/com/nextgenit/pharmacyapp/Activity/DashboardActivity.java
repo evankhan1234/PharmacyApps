@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,12 +46,16 @@ public class DashboardActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IRetrofitApi mService;
     EditText edit_content;
+    ImageView img_close;
+    ImageView img_log_out;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mService= Common.getApiXact();
         rcv_list=findViewById(R.id.rcv_list);
+        img_close=findViewById(R.id.img_close);
+        img_log_out=findViewById(R.id.img_log_out);
         edit_content=findViewById(R.id.edit_content);
         btn_new=findViewById(R.id.btn_new);
         progress_bar=findViewById(R.id.progress_bar);
@@ -59,6 +64,20 @@ public class DashboardActivity extends AppCompatActivity {
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         rcv_list.setLayoutManager(lm);
         loadData();
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAffinity();
+            }
+        });
+        img_log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
+                SharedPreferenceUtil.saveShared(DashboardActivity.this, SharedPreferenceUtil.TYPE_USER_ID,  "");
+                finish();
+            }
+        });
         btn_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

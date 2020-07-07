@@ -50,6 +50,14 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
          holder.tv_age.setText("Age - "+messageEntities.get(position).age+","+messageEntities.get(position).gender_txt);
        //  Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
 
+        if (messageEntities.get(position).gender_txt.equals("Male")){
+            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.person));
+        }
+        else{
+            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.female));
+        }
+
+
          holder.itemView.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {

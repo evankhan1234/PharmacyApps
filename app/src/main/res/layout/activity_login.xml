@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlt_root"
-    android:background="@color/white"
+    android:background="#fafafa"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -28,11 +28,12 @@
 
 
                 <ImageView
+                    android:id="@+id/img"
                     android:scaleType="fitXY"
-                    android:src="@drawable/login_bg"
+
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"/>
+                    android:layout_height="320dp"/>
 
                 <EditText
                     android:id="@+id/et_email"
