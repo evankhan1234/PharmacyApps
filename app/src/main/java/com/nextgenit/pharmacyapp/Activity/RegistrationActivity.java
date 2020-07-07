@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -43,6 +44,7 @@ public class RegistrationActivity extends AppCompatActivity {
     Button btn_registration;
     TextView tv_login;
     RelativeLayout rlt_root;
+    ImageButton btn_header_back_;
     boolean test = true;
     boolean test_confirm = true;
     ProgressBar progress_bar;
@@ -52,6 +54,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         mService= Common.getApiXact();
         tv_login=findViewById(R.id.tv_login);
+        btn_header_back_=findViewById(R.id.btn_header_back_);
         et_name=findViewById(R.id.et_name);
         btn_registration=findViewById(R.id.btn_registration);
         show_pass=findViewById(R.id.show_pass);
@@ -62,6 +65,119 @@ public class RegistrationActivity extends AppCompatActivity {
         et_email=findViewById(R.id.et_email);
         et_phone=findViewById(R.id.et_phone);
         rlt_root=findViewById(R.id.rlt_root);
+        btn_header_back_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        et_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_email.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_confirm_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+
+                et_email.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_email.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+
+        et_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_email.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_confirm_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+
+                et_name.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_name.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+        et_phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_email.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_confirm_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+
+                et_phone.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_phone.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+
+        et_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_email.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_confirm_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+
+                et_password.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_password.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_confirm_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
+        et_confirm_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                et_confirm_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule));
+                et_phone.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_email.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_password.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+                et_name.setBackground(getResources().getDrawable(R.drawable.edit_text_capsule_gray));
+
+                et_confirm_password.setTextColor(getResources().getColor(R.color.colorPrimary));
+                et_confirm_password.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                et_phone.setTextColor(getResources().getColor(R.color.gray_for));
+                et_phone.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setTextColor(getResources().getColor(R.color.gray_for));
+                et_email.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setTextColor(getResources().getColor(R.color.gray_for));
+                et_name.setHintTextColor(getResources().getColor(R.color.gray_for));
+                et_password.setTextColor(getResources().getColor(R.color.gray_for));
+                et_password.setHintTextColor(getResources().getColor(R.color.gray_for));
+            }
+        });
         tv_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

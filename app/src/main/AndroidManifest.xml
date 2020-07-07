@@ -12,12 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DoctorListActivity"></activity>
+        <activity android:name=".Activity.TempActivity"/>
+        <activity android:name=".Activity.DoctorViewActivity" />
+        <activity android:name=".Activity.DoctorListActivity" />
         <activity android:name=".Activity.SpecialistActivity" />
         <activity android:name=".Activity.PatientRegistrationActivity" />
         <activity android:name=".Activity.DashboardActivity" />
-        <activity android:name=".Activity.RegistrationActivity" />
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.RegistrationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            />
+        <activity android:name=".Activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            />
         <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

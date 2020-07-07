@@ -1,6 +1,8 @@
 package com.nextgenit.pharmacyapp.Network;
 
 import com.nextgenit.pharmacyapp.NetworkModel.APIResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.AppointmentDoctorLIstResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.AppointmentResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.DoctorListResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.LoginResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.OccupationResponses;
@@ -20,6 +22,16 @@ public interface IRetrofitApi {
     @FormUrlEncoded
     @POST("auth/patient-list")
     io.reactivex.Observable<PatientListResponses> getSearchPatientList(@Field("search_string") String search_string);
+
+    @FormUrlEncoded
+    @POST("auth/appointed-doc-info")
+    io.reactivex.Observable<AppointmentDoctorLIstResponses> postAppointmentDoctorList(@Field("appointment_id") int appointment_id);
+
+    @FormUrlEncoded
+    @POST("auth/patient-appointment")
+    io.reactivex.Observable<AppointmentResponses> postPatientAppointment(@Field("patient_id") int patient_id,
+                                                                         @Field("appointment_date") String appointment_date,
+                                                                         @Field("patient_id") int created_by);
     @GET("auth/spl-wise-doc-reg")
     io.reactivex.Observable<SpecialistResponses> getSpecialList();
 //
