@@ -1,7 +1,10 @@
 package com.nextgenit.pharmacyapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.nextgenit.pharmacyapp.Adapter.DashboardAdapter;
+import com.nextgenit.pharmacyapp.Adapter.PrescriptionAdapter;
 import com.nextgenit.pharmacyapp.Network.IRetrofitApi;
 import com.nextgenit.pharmacyapp.NetworkModel.AppointmentDoctorLIstResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.AppointmentResponses;
@@ -35,6 +40,7 @@ public class DoctorViewActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IRetrofitApi mService;
 
+    PrescriptionAdapter prescriptionAdapter;
     ImageView user_icon;
     ImageView img_close;
     ImageView img_log_out;
@@ -48,13 +54,16 @@ public class DoctorViewActivity extends AppCompatActivity {
     PatientList patientList;
     ProgressBar progress_bar;
     int appointmentId;
+    RecyclerView rcv_list;
+    private Activity mActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_view);
         mService= Common.getApiXact();
-
+        mActivity=this;
         tv_doctor_name=findViewById(R.id.tv_doctor_name);
+        rcv_list=findViewById(R.id.rcv_list);
         user_icon=findViewById(R.id.user_icon);
         tv_patient_name=findViewById(R.id.tv_patient_name);
         tv_name=findViewById(R.id.tv_name);
@@ -68,10 +77,12 @@ public class DoctorViewActivity extends AppCompatActivity {
        // specialist = getIntent().getExtras().getParcelable("specialist");
         patientList = getIntent().getExtras().getParcelable("patient");
        // doctorList = getIntent().getExtras().getParcelable("foo");
-
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        lm.setOrientation(LinearLayoutManager.VERTICAL);
+        rcv_list.setLayoutManager(lm);
         tv_patient_name.setText(patientList.patient_name);
-        tv_phone_number.setText(patientList.mobile1);
-        tv_gender.setText(patientList.gender_txt);
+      //  tv_phone_number.setText(patientList.mobile1);
+       // tv_gender.setText(patientList.gender_txt);
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +114,9 @@ public class DoctorViewActivity extends AppCompatActivity {
                 Log.e("study", "study" + new Gson().toJson(appointmentResponses));
                 tv_doctor_name.setText(appointmentResponses.data_list.full_name);
                 tv_name.setText(appointmentResponses.data_list.specialization);
+                prescriptionAdapter = new PrescriptionAdapter(mActivity, appointmentResponses.presc_list);
+
+                rcv_list.setAdapter(prescriptionAdapter);
                 progress_bar.setVisibility(View.GONE);
             }
         }, new Consumer<Throwable>() {
