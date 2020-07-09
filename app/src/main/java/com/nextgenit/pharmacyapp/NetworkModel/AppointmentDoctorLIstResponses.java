@@ -7,4 +7,7 @@ import java.util.ArrayList;
 public class AppointmentDoctorLIstResponses extends APIResponses {
     @SerializedName("data_list")
     public AppointmentDoctorList data_list;
+
+    @SerializedName("presc_list")
+    public ArrayList<Prescription> presc_list;
 }

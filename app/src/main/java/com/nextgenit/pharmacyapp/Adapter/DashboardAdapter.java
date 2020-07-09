@@ -56,7 +56,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         else{
             holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.female));
         }
-
+        String serial = messageEntities.get(position).slot_sl != null ? messageEntities.get(position).slot_sl : "0";
+        String remaining =messageEntities.get(position).remainingtime_txt != null ? messageEntities.get(position).remainingtime_txt : "00:00:00";
+        holder.tv_serial.setText(serial);
+        holder.tv_remaining.setText("Remaining Time ("+ remaining+")");
 
          holder.itemView.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -79,6 +82,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         private TextView tv_name;
         private TextView tv_age;
         private TextView tv_phone_number;
+        private TextView tv_remaining;
+        private TextView tv_serial;
 
 
 
@@ -89,6 +94,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_age = itemView.findViewById(R.id.tv_age);
             tv_phone_number = itemView.findViewById(R.id.tv_phone_number);
+            tv_remaining = itemView.findViewById(R.id.tv_remaining);
+            tv_serial = itemView.findViewById(R.id.tv_serial);
 
 
 

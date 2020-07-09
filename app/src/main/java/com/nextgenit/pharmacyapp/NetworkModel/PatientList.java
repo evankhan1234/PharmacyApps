@@ -40,6 +40,10 @@ public class PatientList implements Parcelable {
     public String  nationality;
     @SerializedName("national_id")
     public String  national_id;
+    @SerializedName("remainingtime_txt")
+    public String  remainingtime_txt;
+    @SerializedName("slot_sl")
+    public String  slot_sl;
 
     protected PatientList(Parcel in) {
         patient_no_pk = in.readInt();
@@ -59,6 +63,8 @@ public class PatientList implements Parcelable {
         marital_status_txt = in.readString();
         nationality = in.readString();
         national_id = in.readString();
+        remainingtime_txt = in.readString();
+        slot_sl = in.readString();
     }
 
     public static final Creator<PatientList> CREATOR = new Creator<PatientList>() {
@@ -97,5 +103,7 @@ public class PatientList implements Parcelable {
         dest.writeString(marital_status_txt);
         dest.writeString(nationality);
         dest.writeString(national_id);
+        dest.writeString(remainingtime_txt);
+        dest.writeString(slot_sl);
     }
 }
