@@ -39,9 +39,9 @@
                     android:layout_height="95dp"
                     android:layout_marginTop="3dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/person"
+                    android:src="@drawable/mens"
                     app:civ_border_color="@color/colorPrimary"
-                    app:civ_border_width="4dp"
+                    app:civ_border_width="3dp"
                     />
 
 
@@ -54,6 +54,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -73,6 +74,7 @@
 
                     <TextView
 
+                        android:layout_marginTop="-2dp"
                         android:id="@+id/tv_age"
                         android:layout_width="wrap_content"
 
@@ -84,7 +86,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-
+                        android:layout_marginTop="-2dp"
                         android:id="@+id/tv_phone_number"
                         android:layout_width="wrap_content"
                         android:textStyle="bold"
@@ -95,28 +97,33 @@
                         android:textSize="15sp" />
 
 
-                    <LinearLayout
+                    <RelativeLayout
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        >
 
                         <TextView
+                            android:layout_marginTop="-2dp"
+                            android:layout_alignParentLeft="true"
                             android:id="@+id/tv_remaining"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="Remaining Time(00:50:00)"
-                            android:textColor="#e5bd58"
-                            android:textSize="15sp" />
+                            android:text="আর মাত্র 5 মিনিট"
+                            android:textColor="#856404"
+                            android:textStyle="bold"
+                            android:textSize="17sp" />
                         <TextView
 
-
+                            android:layout_marginRight="30dp"
+                            android:layout_alignParentRight="true"
                             android:textAlignment="center"
                             android:textStyle="bold"
                             android:paddingTop="6dp"
                             android:background="@drawable/text_view_circular"
                             android:id="@+id/tv_serial"
+
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_marginLeft="25dp"
@@ -124,7 +131,7 @@
                             android:textColor="@color/white"
                             android:textSize="15sp" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <ImageView

@@ -38,11 +38,12 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+
                         android:id="@+id/img_close"
                         android:layout_alignParentLeft="true"
-                        android:src="@drawable/close_cancel_black"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                        android:src="@drawable/close_cross"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"/>
                     <ImageView
                         android:id="@+id/img_log_out"
                         android:layout_alignParentRight="true"
@@ -54,17 +55,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     android:text="Let's Register a Patient"
                     android:textColor="#333"
-                    android:textSize="25sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="Create a patient account to get"
                     android:textColor="#b8b8b8"
                     android:textSize="17sp"
@@ -74,7 +75,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="0dp"
                     android:text="an appointment"
                     android:textColor="#b8b8b8"
                     android:textStyle="bold"
@@ -96,7 +97,7 @@
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/edit_text_capsule_gray"
                         android:drawableLeft="@drawable/ic_baseline_supervised_user_circle_24"
@@ -107,7 +108,7 @@
                     <EditText
                         android:id="@+id/et_age"
                         android:layout_width="match_parent"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/edit_text_capsule_gray"
                         android:drawableLeft="@drawable/ic_baseline_data_usage_24"
@@ -137,7 +138,7 @@
                                 android:id="@+id/radio_men"
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="30dp"
+
 
                                 android:buttonTint="@color/gray_for"
                                 android:checked="true"
@@ -173,7 +174,7 @@
                             android:id="@+id/radio_married"
                             android:layout_width="150dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="40dp"
+                            android:layout_marginLeft="10dp"
 
                             android:buttonTint="@color/gray_for"
                             android:text="Married"
@@ -204,7 +205,7 @@
                         <EditText
                             android:id="@+id/et_height"
                             android:layout_width="0dp"
-                            android:layout_height="65dp"
+                            android:layout_height="55dp"
                             android:layout_marginTop="20dp"
                             android:layout_weight="1"
                             android:background="@drawable/edit_text_capsule_gray"
@@ -217,7 +218,7 @@
                         <EditText
                             android:id="@+id/et_weight"
                             android:layout_width="0dp"
-                            android:layout_height="65dp"
+                            android:layout_height="55dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="20dp"
                             android:layout_weight="1"
@@ -240,9 +241,10 @@
                         android:textSize="16sp" />
 
                     <Spinner
+
                         android:id="@+id/spinner_occupation"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="55dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/test"
                         android:visibility="visible" />
@@ -250,7 +252,7 @@
                     <EditText
                         android:id="@+id/et_phone"
                         android:layout_width="match_parent"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/edit_text_capsule_gray"
                         android:drawableLeft="@drawable/ic_baseline_smartphone_24"
@@ -288,7 +290,7 @@
                         <Button
                             android:id="@+id/btn_ok"
                             android:text="Create"
-                            android:textSize="21sp"
+                            android:textSize="17sp"
                             android:textColor="#fafafa"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
@@ -297,11 +299,11 @@
                             android:background="@drawable/capsule_button"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="50dp"/>
                         <Button
                             android:id="@+id/btn_cancel"
                             android:text="Cancel"
-                            android:textSize="21sp"
+                            android:textSize="17sp"
                             android:textColor="#fafafa"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
@@ -311,7 +313,7 @@
                             android:background="@drawable/capsule_button"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="50dp"/>
                     </LinearLayout>
 
 

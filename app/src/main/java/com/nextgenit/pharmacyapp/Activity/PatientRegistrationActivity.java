@@ -94,7 +94,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finishAffinity();
+                finish();
             }
         });
         img_log_out.setOnClickListener(new View.OnClickListener() {

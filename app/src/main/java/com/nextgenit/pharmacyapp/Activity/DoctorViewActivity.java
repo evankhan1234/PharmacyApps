@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,32 +48,44 @@ public class DoctorViewActivity extends AppCompatActivity {
     TextView tv_patient_name;
 
     TextView tv_name;
-    TextView tv_phone_number;
+    TextView tv_serial;
     TextView tv_gender;
-    TextView tv_age;
+    TextView tv_phone_number;
     TextView tv_doctor_name;
     PatientList patientList;
     ProgressBar progress_bar;
     int appointmentId;
     RecyclerView rcv_list;
     private Activity mActivity;
+    private LinearLayout cart;
+    private  TextView tv_degree1;
+    private  TextView tv_degree2;
+    private  TextView tv_degree3;
+    private  TextView tv_degree4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_view);
         mService= Common.getApiXact();
         mActivity=this;
+        cart=findViewById(R.id.cart);
         tv_doctor_name=findViewById(R.id.tv_doctor_name);
+        tv_serial=findViewById(R.id.tv_serial);
         rcv_list=findViewById(R.id.rcv_list);
         user_icon=findViewById(R.id.user_icon);
         tv_patient_name=findViewById(R.id.tv_patient_name);
         tv_name=findViewById(R.id.tv_name);
-        tv_phone_number=findViewById(R.id.tv_phone_number);
+        tv_degree1=findViewById(R.id.tv_degree1);
+        tv_degree2=findViewById(R.id.tv_degree2);
+        tv_degree3=findViewById(R.id.tv_degree3);
+        tv_degree4=findViewById(R.id.tv_degree4);
+
         tv_gender=findViewById(R.id.tv_gender);
-        tv_age=findViewById(R.id.tv_age);
+        tv_phone_number=findViewById(R.id.tv_phone_number);
+
         progress_bar=findViewById(R.id.progress_bar);
         img_close=findViewById(R.id.img_close);
-        img_log_out=findViewById(R.id.img_log_out);
+
         appointmentId = getIntent().getIntExtra("appointment_id",0);
        // specialist = getIntent().getExtras().getParcelable("specialist");
         patientList = getIntent().getExtras().getParcelable("patient");
@@ -81,26 +94,25 @@ public class DoctorViewActivity extends AppCompatActivity {
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         rcv_list.setLayoutManager(lm);
         tv_patient_name.setText(patientList.patient_name);
+        tv_phone_number.setText(patientList.mobile1);
       //  tv_phone_number.setText(patientList.mobile1);
-       // tv_gender.setText(patientList.gender_txt);
+        tv_gender.setText("Age-"+patientList.age+","+patientList.gender_txt);
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finishAffinity();
+               finish();
             }
         });
-        img_log_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DoctorViewActivity.this,LoginActivity.class));
-                SharedPreferenceUtil.saveShared(DoctorViewActivity.this, SharedPreferenceUtil.TYPE_USER_ID,  "");
-                finish();
-            }
-        });
-        tv_age.setText("("+patientList.age+")");
-        Glide.with(this).load("https://nationaltoday.com/wp-content/uploads/2019/03/national-doctors-day.jpg").placeholder(R.mipmap.ic_launcher).into(user_icon);
 
+//        tv_age.setText("("+patientList.age+")");
+     //   Glide.with(this).load("https://nationaltoday.com/wp-content/uploads/2019/03/national-doctors-day.jpg").placeholder(R.mipmap.ic_launcher).into(user_icon);
 
+        if (patientList.gender_txt.equals("Male")){
+            user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.mens));
+        }
+        else{
+            user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.girls));
+        }
     }
     private void load() {
         progress_bar.setVisibility(View.VISIBLE);
@@ -108,15 +120,41 @@ public class DoctorViewActivity extends AppCompatActivity {
         Date date = new Date(System.currentTimeMillis());
         String currentDate = formatter.format(date);
 
-        compositeDisposable.add(mService.postAppointmentDoctorList(appointmentId).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<AppointmentDoctorLIstResponses>() {
+        compositeDisposable.add(mService.postAppointmentDoctorList(38).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<AppointmentDoctorLIstResponses>() {
             @Override
             public void accept(AppointmentDoctorLIstResponses appointmentResponses) throws Exception {
                 Log.e("study", "study" + new Gson().toJson(appointmentResponses));
                 tv_doctor_name.setText(appointmentResponses.data_list.full_name);
                 tv_name.setText(appointmentResponses.data_list.specialization);
-                prescriptionAdapter = new PrescriptionAdapter(mActivity, appointmentResponses.presc_list);
+                tv_serial.setText(appointmentResponses.data_list.slot_sl);
+                if (appointmentResponses.data_list.degree1!=null){
+                    tv_degree1.setText(appointmentResponses.data_list.degree1);
+                    if (appointmentResponses.data_list.degree2!=null){
+                        tv_degree2.setText(", "+appointmentResponses.data_list.degree2);
+                    }
+                    if (appointmentResponses.data_list.degree3!=null){
+                        tv_degree3.setText(", "+appointmentResponses.data_list.degree3);
+                    }
+                    if (appointmentResponses.data_list.degree4!=null){
+                        tv_degree4.setText(", "+appointmentResponses.data_list.degree4);
+                    }
+                }
+                else{
+                    tv_degree1.setText("NO degree included");
+                }
 
-                rcv_list.setAdapter(prescriptionAdapter);
+                if (appointmentResponses.presc_list.size()>0){
+                    rcv_list.setVisibility(View.VISIBLE);
+                    prescriptionAdapter = new PrescriptionAdapter(mActivity, appointmentResponses.presc_list);
+                    rcv_list.setAdapter(prescriptionAdapter);
+                    cart.setVisibility(View.GONE);
+
+                }
+                else{
+                    cart.setVisibility(View.VISIBLE);
+                    rcv_list.setVisibility(View.GONE);
+                }
+
                 progress_bar.setVisibility(View.GONE);
             }
         }, new Consumer<Throwable>() {
