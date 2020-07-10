@@ -49,7 +49,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
         holder.tv_name.setText(messageEntities.get(position).doctor_name);
         holder.tv_specialist.setText(messageEntities.get(position).doctor_specialization);
         holder.tv_prescription.setText("Prescription Id :"+messageEntities.get(position).prescription_code);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm aaa");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
         Date date1 = null;
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(messageEntities.get(position).prescription_date);

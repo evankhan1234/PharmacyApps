@@ -51,15 +51,24 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
        //  Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
 
         if (messageEntities.get(position).gender_txt.equals("Male")){
-            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.person));
+            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.mens));
         }
         else{
-            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.female));
+            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.girls));
         }
         String serial = messageEntities.get(position).slot_sl != null ? messageEntities.get(position).slot_sl : "0";
         String remaining =messageEntities.get(position).remainingtime_txt != null ? messageEntities.get(position).remainingtime_txt : "00:00:00";
         holder.tv_serial.setText(serial);
-        holder.tv_remaining.setText("Remaining Time ("+ remaining+")");
+
+
+        if(messageEntities.get(position).remainingtime_txt!=null){
+            holder.tv_remaining.setText("আর মাত্র 15 মিনিট");
+          //  holder.tv_remaining.setText("আর মাত্র "+ messageEntities.get(position).remainingtime_txt+"মিনিট");
+        }
+        else{
+            holder.tv_remaining.setText("আর মাত্র 15 মিনিট");
+        }
+
 
          holder.itemView.setOnClickListener(new View.OnClickListener() {
              @Override

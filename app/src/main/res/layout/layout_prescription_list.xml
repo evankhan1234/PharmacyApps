@@ -58,7 +58,7 @@
                         android:layout_marginLeft="15dp"
                         android:text="আজম খান "
                         android:textColor="@color/colorPrimary"
-                        android:textSize="19sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -73,7 +73,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="+8801677182084"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="21sp" />
+                    android:textSize="17sp" />
 
                 <TextView
 
@@ -84,7 +84,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="+8801677182084"
                     android:textColor="#856404"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
 
                 <LinearLayout
@@ -98,9 +98,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="Remaining Time(00:50:00)"
+                        android:text="আর মাত্র 15 মিনিট"
                         android:textColor="#856404"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -111,6 +111,7 @@
 
                 android:textAlignment="center"
                 android:text="view"
+                android:layout_marginRight="20dp"
                 android:textColor="@color/white"
                 android:background="@drawable/text_shape"
                 android:layout_width="70dp"
@@ -119,11 +120,6 @@
 
 
 
-        <View
-            android:layout_marginTop="8dp"
-            android:background="#b8b8b8"
-            android:layout_width="match_parent"
-            android:layout_height="2dp" />
 
     </LinearLayout>
 

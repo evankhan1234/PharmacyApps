@@ -28,15 +28,22 @@
 
 
                 <ImageView
+                    android:src="@drawable/loginbg"
                     android:id="@+id/img"
                     android:scaleType="centerCrop"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="320dp"/>
+                    android:layout_height="360dp"/>
 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
                 <EditText
                     android:id="@+id/et_email"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="40dp"
                     android:drawableLeft="@drawable/mail"
                     android:paddingLeft="20dp"
                     android:drawablePadding="10dp"
@@ -45,7 +52,7 @@
                     android:hint="Enter Email Address"
                     android:background="@drawable/edit_text_capsule_gray"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"/>
+                    android:layout_height="55dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,7 +64,7 @@
                         android:layout_marginRight="10dp"
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
-                        android:layout_height="65dp"
+                        android:layout_height="55dp"
                         android:background="@drawable/edit_text_capsule_gray"
                         android:drawableLeft="@drawable/password"
                         android:drawablePadding="10dp"
@@ -70,8 +77,8 @@
                     <ImageView
 
                         android:id="@+id/show_pass"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:layout_centerVertical="true"
@@ -82,15 +89,13 @@
                 <Button
                     android:id="@+id/btn_login"
                     android:text="LOG IN"
-                    android:textSize="21sp"
+                    android:textSize="17sp"
                     android:textColor="#fafafa"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:background="@drawable/capsule_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"/>
             </LinearLayout>
 
 
@@ -105,7 +110,7 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:visibility="gone" />
     <LinearLayout
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="2dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
@@ -121,7 +126,7 @@
             android:text="Don't have any account?"
             android:textColor="#000"
 
-            android:textSize="21sp" />
+            android:textSize="17sp" />
         <TextView
             android:layout_marginLeft="5dp"
             android:id="@+id/tv_sign_up"
@@ -131,6 +136,6 @@
             android:layout_height="wrap_content"
             android:text="Sign Up"
             android:textColor="#0050d3"
-            android:textSize="21sp" />
+            android:textSize="17sp" />
     </LinearLayout>
 </RelativeLayout>
