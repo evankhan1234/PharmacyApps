@@ -13,4 +13,13 @@ public class Prescription {
     public String  doctor_code;
     @SerializedName("doctor_name")
     public String  doctor_name;
+    @SerializedName("degree1")
+    public String  degree1;
+    @SerializedName("degree2")
+    public String  degree2;
+
+    @SerializedName("degree3")
+    public String  degree3;
+    @SerializedName("degree4")
+    public String  degree4;
 }

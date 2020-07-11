@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
             }
         });
-        img.setImageDrawable(getResources().getDrawable(R.drawable.loginbg));
 
         et_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

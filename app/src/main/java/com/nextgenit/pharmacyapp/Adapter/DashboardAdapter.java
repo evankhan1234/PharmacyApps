@@ -42,6 +42,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     @Override
     public void onBindViewHolder(final DashboardAdapter.DashboardListiewHolder holder, final int position) {
+        PatientList patientList=messageEntities.get(position);
 
 
         Log.e("Evan", "SDfs" + messageEntities.get(position));
@@ -56,9 +57,16 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         else{
             holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.girls));
         }
-        String serial = messageEntities.get(position).slot_sl != null ? messageEntities.get(position).slot_sl : "0";
+        if (messageEntities.get(position).slot_sl != null){
+            String serial = messageEntities.get(position).slot_sl != null ? messageEntities.get(position).slot_sl : "0";
+            holder.tv_serial.setText(serial);
+            holder.tv_serial.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.tv_serial.setVisibility(View.INVISIBLE);
+        }
+
         String remaining =messageEntities.get(position).remainingtime_txt != null ? messageEntities.get(position).remainingtime_txt : "00:00:00";
-        holder.tv_serial.setText(serial);
 
 
         if(messageEntities.get(position).remainingtime_txt!=null){

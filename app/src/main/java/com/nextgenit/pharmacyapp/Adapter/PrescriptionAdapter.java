@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,6 +59,23 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
         }
         String date=  formatter.format(date1);
         holder.tv_date.setText(date);
+
+        if (messageEntities.get(position).degree1!=null){
+            holder.linear.setVisibility(View.VISIBLE);
+            holder.tv_degree1.setText(messageEntities.get(position).degree1);
+            if (messageEntities.get(position).degree2!=null){
+                holder.tv_degree2.setText(", "+messageEntities.get(position).degree2);
+            }
+            if (messageEntities.get(position).degree3!=null){
+                holder.tv_degree3.setText(", "+messageEntities.get(position).degree3);
+            }
+            if (messageEntities.get(position).degree4!=null){
+                holder.tv_degree4.setText(", "+messageEntities.get(position).degree4);
+            }
+        }
+        else{
+            holder.linear.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -70,11 +88,15 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
 
 
 
-        private ImageView img_next;
+        private LinearLayout linear;
         private TextView tv_date;
         private TextView tv_name;
         private TextView tv_specialist;
         private TextView tv_prescription;
+        private TextView tv_degree1;
+        private TextView tv_degree2;
+        private TextView tv_degree3;
+        private TextView tv_degree4;
 
 
 
@@ -86,6 +108,11 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_specialist = itemView.findViewById(R.id.tv_specialist);
             tv_prescription = itemView.findViewById(R.id.tv_prescription);
+            tv_degree1 = itemView.findViewById(R.id.tv_degree1);
+            tv_degree2 = itemView.findViewById(R.id.tv_degree2);
+            tv_degree3 = itemView.findViewById(R.id.tv_degree3);
+            tv_degree4 = itemView.findViewById(R.id.tv_degree4);
+            linear = itemView.findViewById(R.id.linear);
 
 
 
