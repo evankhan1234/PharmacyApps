@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -62,6 +63,7 @@ public class DoctorViewActivity extends AppCompatActivity {
     private  TextView tv_degree2;
     private  TextView tv_degree3;
     private  TextView tv_degree4;
+    Button btn_cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,7 @@ public class DoctorViewActivity extends AppCompatActivity {
         mService= Common.getApiXact();
         mActivity=this;
         cart=findViewById(R.id.cart);
+        btn_cancel=findViewById(R.id.btn_cancel);
         tv_doctor_name=findViewById(R.id.tv_doctor_name);
         tv_serial=findViewById(R.id.tv_serial);
         rcv_list=findViewById(R.id.rcv_list);
@@ -98,6 +101,12 @@ public class DoctorViewActivity extends AppCompatActivity {
       //  tv_phone_number.setText(patientList.mobile1);
         tv_gender.setText("Age-"+patientList.age+","+patientList.gender_txt);
         img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                finish();

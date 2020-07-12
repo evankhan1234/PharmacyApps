@@ -26,6 +26,8 @@ import com.nextgenit.pharmacyapp.NetworkModel.PatientListResponses;
 import com.nextgenit.pharmacyapp.R;
 import com.nextgenit.pharmacyapp.Utils.Common;
 import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,12 +50,14 @@ public class DashboardActivity extends AppCompatActivity {
     EditText edit_content;
     ImageView img_close;
     ImageView img_log_out;
+    SwipyRefreshLayout swipe_refresh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mService= Common.getApiXact();
         rcv_list=findViewById(R.id.rcv_list);
+        swipe_refresh=findViewById(R.id.swipe_refresh);
         img_close=findViewById(R.id.img_close);
         img_log_out=findViewById(R.id.img_log_out);
         edit_content=findViewById(R.id.edit_content);
@@ -82,6 +86,13 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(DashboardActivity.this,PatientRegistrationActivity.class));
+            }
+        });
+        swipe_refresh.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                loadData();
+                swipe_refresh.setRefreshing(false);
             }
         });
         edit_content.addTextChangedListener(new TextWatcher() {

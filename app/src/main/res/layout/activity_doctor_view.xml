@@ -118,13 +118,6 @@
                 android:text="Dr.Edward Stiwenson"
                 android:textColor="#856404"
                 android:textSize="22sp" />
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MBBS,Cardiology Specialist"
-                android:textColor="#856404"
-                android:textSize="17sp" />
             <LinearLayout
 
                 android:orientation="horizontal"
@@ -155,13 +148,21 @@
                     android:textColor="#856404"
                     android:textSize="17sp" />
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MBBS,Cardiology Specialist"
+                android:textColor="#856404"
+                android:textSize="17sp" />
+
 
             <TextView
                 android:layout_marginTop="7dp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Today at 8:30 PM"
+                android:text="আজ বিকাল 8:30 PM"
                 android:textColor="#856404"
                 android:textSize="19sp" />
             <TextView
@@ -212,7 +213,7 @@
             <Button
                 android:textAllCaps="false"
                 android:id="@+id/btn_cancel"
-                android:text="Paitient List"
+                android:text="Patient List"
                 android:textSize="17sp"
                 android:textColor="#fafafa"
                 android:layout_gravity="center_horizontal"
