@@ -141,7 +141,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
     private void loadData() {
         progress_bar.setVisibility(View.VISIBLE);
-        compositeDisposable.add(mService.getPatientList().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PatientListResponses>() {
+        compositeDisposable.add(mService.getPatientList(SharedPreferenceUtil.getUserID(DashboardActivity.this)).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PatientListResponses>() {
             @Override
             public void accept(PatientListResponses patientListResponses) throws Exception {
                 Log.e("study", "study" + new Gson().toJson(patientListResponses));

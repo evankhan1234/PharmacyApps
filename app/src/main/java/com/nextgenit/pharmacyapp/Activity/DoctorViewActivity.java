@@ -117,10 +117,10 @@ public class DoctorViewActivity extends AppCompatActivity {
      //   Glide.with(this).load("https://nationaltoday.com/wp-content/uploads/2019/03/national-doctors-day.jpg").placeholder(R.mipmap.ic_launcher).into(user_icon);
 
         if (patientList.gender_txt.equals("Male")){
-            user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.mens));
+            user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.male));
         }
         else{
-            user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.girls));
+            user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.female));
         }
     }
     private void load() {
@@ -129,7 +129,7 @@ public class DoctorViewActivity extends AppCompatActivity {
         Date date = new Date(System.currentTimeMillis());
         String currentDate = formatter.format(date);
 
-        compositeDisposable.add(mService.postAppointmentDoctorList(38).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<AppointmentDoctorLIstResponses>() {
+        compositeDisposable.add(mService.postAppointmentDoctorList(appointmentId).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<AppointmentDoctorLIstResponses>() {
             @Override
             public void accept(AppointmentDoctorLIstResponses appointmentResponses) throws Exception {
                 Log.e("study", "study" + new Gson().toJson(appointmentResponses));

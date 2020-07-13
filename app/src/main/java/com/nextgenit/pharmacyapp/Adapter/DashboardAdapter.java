@@ -52,10 +52,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
        //  Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
 
         if (messageEntities.get(position).gender_txt.equals("Male")){
-            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.mens));
+            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.male));
         }
         else{
-            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.girls));
+            holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.female));
         }
         if (messageEntities.get(position).slot_sl != null){
             String serial = messageEntities.get(position).slot_sl != null ? messageEntities.get(position).slot_sl : "0";

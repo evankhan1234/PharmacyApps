@@ -282,7 +282,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                     maritalStatus="Married";
                 }
                 if (radio_unmarried.isChecked()){
-                    maritalStatus="UnMarried";
+                    maritalStatus="Single";
                 }
                 String name=et_name.getText().toString();
                 String age=et_age.getText().toString();
@@ -320,7 +320,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                     Log.e("data","data"+phone);
                     Log.e("data","data"+desc);
                     progress_bar.setVisibility(View.VISIBLE);
-                    compositeDisposable.add(mService.postPatientRegistration(name,age,genderStatus,maritalStatus,height,weight,occupationId,phone,desc).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PatientRegistrationResponses>() {
+                    compositeDisposable.add(mService.postPatientRegistration(name,age,genderStatus,maritalStatus,height,weight,occupationId,phone,desc,SharedPreferenceUtil.getUserID(PatientRegistrationActivity.this)).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PatientRegistrationResponses>() {
                         @Override
                         public void accept(PatientRegistrationResponses registrationResponses) throws Exception {
                             Log.e("ff", "dgg" + new Gson().toJson(registrationResponses));
