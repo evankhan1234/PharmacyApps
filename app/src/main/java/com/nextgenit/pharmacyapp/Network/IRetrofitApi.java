@@ -17,8 +17,9 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface IRetrofitApi {
+    @FormUrlEncoded
     @POST("auth/patient-list")
-    io.reactivex.Observable<PatientListResponses> getPatientList();
+    io.reactivex.Observable<PatientListResponses> getPatientList(@Field("pharmacy_id") String pharmacy_id);
     @FormUrlEncoded
     @POST("auth/patient-list")
     io.reactivex.Observable<PatientListResponses> getSearchPatientList(@Field("search_string") String search_string);
@@ -31,7 +32,7 @@ public interface IRetrofitApi {
     @POST("auth/patient-appointment")
     io.reactivex.Observable<AppointmentResponses> postPatientAppointment(@Field("patient_id") int patient_id,
                                                                          @Field("appointment_date") String appointment_date,
-                                                                         @Field("patient_id") int created_by);
+                                                                         @Field("created_by") int created_by);
     @GET("auth/spl-wise-doc-reg")
     io.reactivex.Observable<SpecialistResponses> getSpecialList();
 //
@@ -53,7 +54,7 @@ public interface IRetrofitApi {
                                                                     @Field("email") String email,
                                                                     @Field("phone_mobile") String phone_mobile,
                                                                     @Field("password") String password,
-                                                                    @Field("re-password") String re_password);
+                                                                    @Field("password_confirmation") String re_password);
 
     @FormUrlEncoded
     @POST("auth/patient-reg")
@@ -65,5 +66,6 @@ public interface IRetrofitApi {
                                                                                   @Field("pat_weight") String pat_weight,
                                                                                   @Field("ocupation_id") String ocupation_id,
                                                                                   @Field("pat_mobile") String pat_mobile,
-                                                                                  @Field("disease_desc") String disease_desc);
+                                                                                  @Field("disease_desc") String disease_desc,
+                                                                                  @Field("created_by") String created_by);
 }
