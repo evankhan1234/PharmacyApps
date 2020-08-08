@@ -3,8 +3,12 @@ package com.nextgenit.pharmacyapp.NetworkModel;
 import com.google.gson.annotations.SerializedName;
 
 public class Prescription {
+    @SerializedName("prescription_no_pk")
+    public int  prescription_no_pk;
     @SerializedName("prescription_code")
     public String  prescription_code;
+    @SerializedName("appointment_no_fk")
+    public int  appointment_no_fk;
     @SerializedName("prescription_date")
     public String  prescription_date;
     @SerializedName("doctor_specialization")
