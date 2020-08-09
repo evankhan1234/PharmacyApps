@@ -1,6 +1,7 @@
 package com.nextgenit.pharmacyapp.Adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nextgenit.pharmacyapp.Activity.PrescriptionViewActivity;
 import com.nextgenit.pharmacyapp.Interface.ISpecialityViewListener;
 import com.nextgenit.pharmacyapp.NetworkModel.Prescription;
 import com.nextgenit.pharmacyapp.NetworkModel.Specialist;
@@ -76,6 +78,16 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
         else{
             holder.linear.setVisibility(View.GONE);
         }
+        holder.tv_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(mActivity, PrescriptionViewActivity.class);
+                i.putExtra("id",messageEntities.get(position).prescription_no_pk);
+                mActivity.startActivity(i);
+            }
+        });
+
     }
 
     @Override
@@ -97,6 +109,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
         private TextView tv_degree2;
         private TextView tv_degree3;
         private TextView tv_degree4;
+        private TextView tv_view;
 
 
 
@@ -113,6 +126,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
             tv_degree3 = itemView.findViewById(R.id.tv_degree3);
             tv_degree4 = itemView.findViewById(R.id.tv_degree4);
             linear = itemView.findViewById(R.id.linear);
+            tv_view = itemView.findViewById(R.id.tv_view);
 
 
 

@@ -24,6 +24,7 @@ import com.nextgenit.pharmacyapp.NetworkModel.AppointmentDoctorLIstResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.AppointmentResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.DoctorList;
 import com.nextgenit.pharmacyapp.NetworkModel.PatientList;
+import com.nextgenit.pharmacyapp.NetworkModel.PresecriptionListResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.Specialist;
 import com.nextgenit.pharmacyapp.R;
 import com.nextgenit.pharmacyapp.Utils.Common;
@@ -152,17 +153,7 @@ public class DoctorViewActivity extends AppCompatActivity {
                     tv_degree1.setText("NO degree included");
                 }
 
-                if (appointmentResponses.presc_list.size()>0){
-                    rcv_list.setVisibility(View.VISIBLE);
-                    prescriptionAdapter = new PrescriptionAdapter(mActivity, appointmentResponses.presc_list);
-                    rcv_list.setAdapter(prescriptionAdapter);
-                    cart.setVisibility(View.GONE);
 
-                }
-                else{
-                    cart.setVisibility(View.VISIBLE);
-                    rcv_list.setVisibility(View.GONE);
-                }
 
                 progress_bar.setVisibility(View.GONE);
             }
@@ -175,11 +166,39 @@ public class DoctorViewActivity extends AppCompatActivity {
         }));
 
     }
+    private void loadDataAll() {
+        progress_bar.setVisibility(View.VISIBLE);
 
+        compositeDisposable.add(mService.getPrescriptionList(patientList.patient_no_pk).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PresecriptionListResponses>() {
+            @Override
+            public void accept(PresecriptionListResponses presecriptionListResponses) throws Exception {
+                Log.e("getPrescriptionList", "getPrescriptionList" + new Gson().toJson(presecriptionListResponses));
+                if (presecriptionListResponses.data_list.size()>0){
+                    rcv_list.setVisibility(View.VISIBLE);
+                    prescriptionAdapter = new PrescriptionAdapter(mActivity, presecriptionListResponses.data_list);
+                    rcv_list.setAdapter(prescriptionAdapter);
+                    cart.setVisibility(View.GONE);
+
+                }
+                else{
+                    cart.setVisibility(View.VISIBLE);
+                    rcv_list.setVisibility(View.GONE);
+                }
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e("getPrescriptionList", "getPrescriptionList" + throwable.getMessage());
+                progress_bar.setVisibility(View.GONE);
+            }
+        }));
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
         load();
+        loadDataAll();
     }
 
     @Override

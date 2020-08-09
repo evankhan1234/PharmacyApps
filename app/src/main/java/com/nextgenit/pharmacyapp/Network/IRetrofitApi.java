@@ -8,6 +8,9 @@ import com.nextgenit.pharmacyapp.NetworkModel.LoginResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.OccupationResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.PatientListResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.PatientRegistrationResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.PrescriptionListHeaderResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.PresecriptionListResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.PresecriptionViewResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.RegistrationResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.SpecialistResponses;
 
@@ -28,6 +31,16 @@ public interface IRetrofitApi {
     @POST("auth/appointed-doc-info")
     io.reactivex.Observable<AppointmentDoctorLIstResponses> postAppointmentDoctorList(@Field("appointment_id") int appointment_id);
 
+    @FormUrlEncoded
+    @POST("auth/get-pat-presc-list")
+    io.reactivex.Observable<PresecriptionListResponses> getPrescriptionList(@Field("patient_id") int patient_id);
+
+    @FormUrlEncoded
+    @POST("auth/get-prescription-mst")
+    io.reactivex.Observable<PresecriptionViewResponses> getPrescriptionViewHeader(@Field("prescription_id") int prescription_id);
+    @FormUrlEncoded
+    @POST("auth/get-prescription-dtls")
+    io.reactivex.Observable<PrescriptionListHeaderResponses> getPrescriptionViewHeaderDetails(@Field("prescription_id") int prescription_id);
     @FormUrlEncoded
     @POST("auth/patient-appointment")
     io.reactivex.Observable<AppointmentResponses> postPatientAppointment(@Field("patient_id") int patient_id,
