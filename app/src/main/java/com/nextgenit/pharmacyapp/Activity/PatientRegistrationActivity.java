@@ -292,7 +292,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                 String desc=et_description.getText().toString();
                 if (name.equals("") && weight.equals("") && age.equals("") && phone.equals("") && height.equals("") && desc.equals("") ){
 
-                    Util.snackBar("All Data Needed",rlt_root);
+                    Util.snackBar("All the fields are required",rlt_root);
                 }
                 else if (age.equals("") ){
                     Util.snackBar("Age is Empty",rlt_root);
@@ -328,7 +328,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                             progress_bar.setVisibility(View.GONE);
                             if (registrationResponses.status.equals("success")) {
                                 //    SharedPreferenceUtil.saveShared(RegistrationActivity.this, SharedPreferenceUtil.TYPE_USER_ID, registrationResponses.user.user_no_pk + "");
-                                Toast.makeText(PatientRegistrationActivity.this, "Successfully Registration", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PatientRegistrationActivity.this, "Patient Registration Completed Successfully", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(PatientRegistrationActivity.this,DashboardActivity.class));
                                 finish();
 

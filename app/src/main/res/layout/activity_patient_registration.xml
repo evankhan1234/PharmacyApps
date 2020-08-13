@@ -56,30 +56,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="0dp"
-                    android:text="Let's Register a Patient"
+                    android:text="Patient Registration"
                     android:textColor="#333"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:text="Create a patient account to get"
-                    android:textColor="#b8b8b8"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
 
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:text="an appointment"
-                    android:textColor="#b8b8b8"
-                    android:textStyle="bold"
-                    android:textSize="17sp" />
 
                 <LinearLayout
                     android:id="@+id/formHolder"
@@ -219,7 +201,7 @@
                             android:id="@+id/et_weight"
                             android:layout_width="0dp"
                             android:layout_height="55dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="20dp"
                             android:layout_weight="1"
                             android:background="@drawable/edit_text_capsule_gray"
@@ -273,7 +255,7 @@
                         android:background="@drawable/edit_text_description"
                         android:gravity="left"
                         android:hint="Description of disease"
-                        android:minHeight="150dp"
+                        android:minHeight="130dp"
                         android:paddingLeft="39px"
                         android:paddingTop="39px"
                         android:paddingRight="39px"

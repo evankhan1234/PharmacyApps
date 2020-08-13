@@ -95,7 +95,7 @@ public class PrescriptionViewActivity extends AppCompatActivity {
                 Log.e("getPrescriptionList", "getPrescriptionList" + new Gson().toJson(presecriptionListResponses));
                 tv_patient_name.setText(presecriptionListResponses.data_list.patient_name);
                 tv_name.setText(presecriptionListResponses.data_list.doctor_name);
-                tv_patient_details.setText("Age - "+presecriptionListResponses.data_list.age+", "+presecriptionListResponses.data_list.gender_txt+", Wt-"+presecriptionListResponses.data_list.initial_weight+"kg, "+"Ht-"+presecriptionListResponses.data_list.initial_weight+"");
+                tv_patient_details.setText("Age - "+presecriptionListResponses.data_list.age+", "+presecriptionListResponses.data_list.gender_txt);
                 tv_degree.setText(presecriptionListResponses.data_list.degree1+","+presecriptionListResponses.data_list.degree2);
                 progress_bar.setVisibility(View.GONE);
             }
