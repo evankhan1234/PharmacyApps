@@ -33,7 +33,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="2dp"
                     android:background="@color/transparent"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:paddingBottom="3px"
@@ -43,24 +43,15 @@
                     app:srcCompat="@drawable/back_icon" />
 
                 <TextView
+                    android:layout_marginTop="-10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="Let's Get Started!!"
+                    android:text="Pharmacy Registration"
                     android:textColor="#333"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="Create an account to Q Allure to get all features"
-                    android:textColor="#b8b8b8"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/formHolder"
@@ -68,7 +59,7 @@
                     android:layout_height="0dp"
                     android:layout_marginLeft="10dp"
 
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -192,7 +183,7 @@
                         android:textSize="17sp" />
 
                     <LinearLayout
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

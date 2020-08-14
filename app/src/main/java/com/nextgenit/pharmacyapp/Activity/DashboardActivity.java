@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dashboard);
         mService= Common.getApiXact();
         rcv_list=findViewById(R.id.rcv_list);
         swipe_refresh=findViewById(R.id.swipe_refresh);
@@ -121,7 +121,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
     private void loadSearchData(String data) {
         progress_bar.setVisibility(View.VISIBLE);
-        compositeDisposable.add(mService.getSearchPatientList(data).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PatientListResponses>() {
+        compositeDisposable.add(mService.getSearchPatientList(SharedPreferenceUtil.getUserID(DashboardActivity.this),data).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PatientListResponses>() {
             @Override
             public void accept(PatientListResponses patientListResponses) throws Exception {
                 Log.e("study", "study" + new Gson().toJson(patientListResponses));

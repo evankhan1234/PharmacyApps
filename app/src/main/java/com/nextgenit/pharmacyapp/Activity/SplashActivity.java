@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.nextgenit.pharmacyapp.R;
 import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
+import com.nextgenit.pharmacyapp.VideoCall.StartActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,11 +25,11 @@ public class SplashActivity extends AppCompatActivity {
     }
     private void goToLoginPage() {
         if (SharedPreferenceUtil.getUserID(SplashActivity.this)==null||SharedPreferenceUtil.getUserID(SplashActivity.this).equals("")) {
-            Intent i = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent i = new Intent(SplashActivity.this, StartActivity.class);
             startActivity(i);
             finish();
         } else {
-            startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
+            startActivity(new Intent(SplashActivity.this, StartActivity.class));
             finish();
 
         }

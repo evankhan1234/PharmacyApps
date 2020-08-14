@@ -69,12 +69,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         String remaining =messageEntities.get(position).remainingtime_txt != null ? messageEntities.get(position).remainingtime_txt : "00:00:00";
 
 
-        if(messageEntities.get(position).remainingtime_txt!=null){
-            holder.tv_remaining.setText("আর মাত্র 15 মিনিট");
+        if(messageEntities.get(position).appoint_no_pk!=null){
+            holder.tv_remaining.setText(messageEntities.get(position).remainingtime_txt);
           //  holder.tv_remaining.setText("আর মাত্র "+ messageEntities.get(position).remainingtime_txt+"মিনিট");
         }
         else{
-            holder.tv_remaining.setText("আর মাত্র 15 মিনিট");
+            holder.tv_remaining.setVisibility(View.GONE);
+            holder.tv_remaining.setText("");
         }
 
 

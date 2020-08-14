@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password=et_password.getText().toString();
                 if (email.equals("") && password.equals("") ){
 
-                    Util.snackBar("All Data Needed",rlt_root);
+                    Util.snackBar("Email or Password is not valid",rlt_root);
                 }
                 else if (email.equals("") ){
                     Util.snackBar("Email is Empty",rlt_root);
