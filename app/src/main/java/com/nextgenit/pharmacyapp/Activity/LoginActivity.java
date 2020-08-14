@@ -1,8 +1,12 @@
 package com.nextgenit.pharmacyapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -54,6 +58,13 @@ public class LoginActivity extends AppCompatActivity {
         et_email=findViewById(R.id.et_email);
         et_password=findViewById(R.id.et_password);
         rlt_root=findViewById(R.id.rlt_root);
+        if (ContextCompat.checkSelfPermission(LoginActivity.this,
+                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(LoginActivity.this,
+                    new String[]{Manifest.permission.RECORD_AUDIO},
+                    100);
+        }
         tv_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,8 +142,10 @@ public class LoginActivity extends AppCompatActivity {
                             progress_bar.setVisibility(View.GONE);
                             if (loginEntity.status.equals("success")) {
                                 SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.TYPE_USER_ID, loginEntity.user.user_no_pk + "");
+                                SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.USER_ID, loginEntity.user.person_no_fk + "");
+                                SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.TYPE_USER_NAME, loginEntity.user.user_fullname + "");
                                 Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginActivity.this,DashboardActivity.class));
+                                startActivity(new Intent(LoginActivity.this,StartActivity.class));
                                 finish();
 
                             }

@@ -1,12 +1,10 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
-import android.app.Dialog;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -26,9 +24,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.nextgenit.pharmacyapp.Activity.DashboardActivity;
-import com.nextgenit.pharmacyapp.Activity.LoginActivity;
 import com.nextgenit.pharmacyapp.R;
+import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
 
 import org.libsodium.jni.NaCl;
 import org.libsodium.jni.Sodium;
@@ -81,7 +78,23 @@ public class StartActivity extends MeshengerActivity implements ServiceConnectio
 
                 if (this.binder.getSettings().getUsername().isEmpty()) {
                     // set username
-                    showMissingUsernameDialog();
+                    String username = SharedPreferenceUtil.getUserName(StartActivity.this);
+                    if (Utils.isValidName(username)) {
+                        this.binder.getSettings().setUsername(username);
+
+                        try {
+                            this.binder.saveDatabase();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        // close dialog
+
+                        //dialog.cancel(); // needed?
+                        continueInit();
+                    } else {
+                        Toast.makeText(this, R.string.invalid_name, Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     continueInit();
                 }
@@ -110,9 +123,16 @@ public class StartActivity extends MeshengerActivity implements ServiceConnectio
                         nightMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
                 );
 
-                // all done - show contact list
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
+
+                if (SharedPreferenceUtil.getUserID(StartActivity.this)==null||SharedPreferenceUtil.getUserID(StartActivity.this).equals("")) {
+                    Intent i = new Intent(StartActivity.this, DashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    startActivity(new Intent(StartActivity.this, DashboardActivity.class));
+                    finish();
+
+                }
                 break;
         }
     }

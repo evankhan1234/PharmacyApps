@@ -23,9 +23,10 @@ public interface IRetrofitApi {
     @FormUrlEncoded
     @POST("auth/patient-list")
     io.reactivex.Observable<PatientListResponses> getPatientList(@Field("pharmacy_id") String pharmacy_id);
+
     @FormUrlEncoded
     @POST("auth/patient-list")
-    io.reactivex.Observable<PatientListResponses> getSearchPatientList(@Field("pharmacy_id") String pharmacy_id,@Field("search_string") String search_string);
+    io.reactivex.Observable<PatientListResponses> getSearchPatientList(@Field("pharmacy_id") String pharmacy_id, @Field("search_string") String search_string);
 
     @FormUrlEncoded
     @POST("auth/appointed-doc-info")
@@ -38,29 +39,41 @@ public interface IRetrofitApi {
     @FormUrlEncoded
     @POST("auth/get-prescription-mst")
     io.reactivex.Observable<PresecriptionViewResponses> getPrescriptionViewHeader(@Field("prescription_id") int prescription_id);
+
     @FormUrlEncoded
     @POST("auth/get-prescription-dtls")
     io.reactivex.Observable<PrescriptionListHeaderResponses> getPrescriptionViewHeaderDetails(@Field("prescription_id") int prescription_id);
+
     @FormUrlEncoded
     @POST("auth/patient-appointment")
     io.reactivex.Observable<AppointmentResponses> postPatientAppointment(@Field("patient_id") int patient_id,
                                                                          @Field("appointment_date") String appointment_date,
                                                                          @Field("created_by") int created_by);
+
     @GET("auth/spl-wise-doc-reg")
     io.reactivex.Observable<SpecialistResponses> getSpecialList();
-//
+
+    //
     @FormUrlEncoded
     @POST("auth/login")
     io.reactivex.Observable<LoginResponses> postLogin(@Field("email") String email,
-                                                         @Field("password") String password);
+                                                      @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("auth/store-video-content")
+    io.reactivex.Observable<APIResponses> postVideoContent(@Field("pharmacy_id") int pharmacy_id,
+                                                      @Field("content") String content);
+
     @FormUrlEncoded
     @POST("auth/lookup-list-by-code")
     io.reactivex.Observable<OccupationResponses> getOccupation(@Field("lookup_code") String lookup_code
-                                                               );
+    );
+
     @FormUrlEncoded
     @POST("auth/doctor-list")
     io.reactivex.Observable<DoctorListResponses> getDoctorList(@Field("specialization_id") String specialization_id
     );
+
     @FormUrlEncoded
     @POST("auth/signup")
     io.reactivex.Observable<RegistrationResponses> postRegistration(@Field("name") String name,

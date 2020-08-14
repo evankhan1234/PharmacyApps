@@ -1,4 +1,6 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
+
+
 
 import org.json.JSONArray;
 import org.json.JSONException;

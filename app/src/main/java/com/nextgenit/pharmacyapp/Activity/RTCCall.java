@@ -1,4 +1,4 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 
-import android.util.Log;
 import android.util.TypedValue;
 
 import androidx.annotation.ColorInt;
