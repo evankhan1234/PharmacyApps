@@ -1,4 +1,4 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
 import android.os.Bundle;
 

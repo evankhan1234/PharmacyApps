@@ -1,4 +1,4 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
 import java.util.Iterator;
 import java.util.List;

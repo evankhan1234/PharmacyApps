@@ -1,6 +1,4 @@
-package com.nextgenit.pharmacyapp.VideoCall;
-
-import android.util.Log;
+package com.nextgenit.pharmacyapp.Activity;
 
 import java.io.IOException;
 import java.io.OutputStream;

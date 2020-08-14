@@ -1,4 +1,4 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,12 +9,12 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.nextgenit.pharmacyapp.Activity.Contact;
+import com.nextgenit.pharmacyapp.Activity.MainService;
 import com.nextgenit.pharmacyapp.R;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
     Contact contact= null;

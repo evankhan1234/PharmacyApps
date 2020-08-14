@@ -1,11 +1,10 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
-import android.util.Log;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.libsodium.jni.Sodium;
 
 import java.io.Serializable;
 import java.net.ConnectException;

@@ -1,4 +1,4 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
 import android.app.Service;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 
 import org.json.JSONObject;
 import org.libsodium.jni.Sodium;
@@ -196,7 +197,7 @@ public class MainService extends Service implements Runnable {
 
                     if (contact == null) {
                         // unknown caller
-                        contact = new Contact("xfv", clientPublicKey.clone(), addresses);
+                        contact = new Contact("Doctor", clientPublicKey.clone(), addresses);
                     }
                 }
 

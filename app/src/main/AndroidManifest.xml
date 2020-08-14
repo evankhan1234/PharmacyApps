@@ -26,7 +26,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup"
         >
-        <service android:name=".VideoCall.MainService" />
+        <service android:name=".Activity.MainService" />
         <activity android:name=".Activity.PrescriptionViewActivity"/>
         <activity android:name=".Activity.TempActivity" />
         <activity android:name=".Activity.DoctorViewActivity" />
@@ -35,9 +35,9 @@
         <activity android:name=".Activity.PatientRegistrationActivity" />
         <activity android:name=".Activity.DashboardActivity" />
 
-        <activity android:name=".VideoCall.MainActivity" />
-        <activity android:name=".VideoCall.CallActivity" />
-        <activity android:name=".VideoCall.StartActivity" />
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.CallActivity" />
+        <activity android:name=".Activity.StartActivity" />
         <activity
             android:name=".Activity.RegistrationActivity"
             android:screenOrientation="portrait"

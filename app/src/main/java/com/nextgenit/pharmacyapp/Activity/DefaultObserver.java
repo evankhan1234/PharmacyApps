@@ -1,4 +1,4 @@
-package com.nextgenit.pharmacyapp.VideoCall;
+package com.nextgenit.pharmacyapp.Activity;
 
 import org.webrtc.DataChannel;
 import org.webrtc.IceCandidate;
