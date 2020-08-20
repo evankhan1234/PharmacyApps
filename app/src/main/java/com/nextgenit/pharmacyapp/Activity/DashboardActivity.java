@@ -1,5 +1,6 @@
 package com.nextgenit.pharmacyapp.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -23,8 +24,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.nextgenit.pharmacyapp.Adapter.DashboardAdapter;
 import com.nextgenit.pharmacyapp.Interface.IClickListener;
@@ -51,9 +59,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class DashboardActivity extends AppCompatActivity implements ServiceConnection {
-    Contact contact= null;
-    private MainService.MainBinder binder;
+public class DashboardActivity extends AppCompatActivity  {
+
     private RecyclerView rcv_list;
     private DashboardAdapter dashboardAdapter = null;
     private Activity mActivity;
@@ -66,13 +73,13 @@ public class DashboardActivity extends AppCompatActivity implements ServiceConne
     ImageView img_close;
     ImageView img_log_out;
     SwipyRefreshLayout swipe_refresh;
-
+    private DatabaseReference userRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        bindService();
         mService= Common.getApiXact();
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         rcv_list=findViewById(R.id.rcv_list);
         swipe_refresh=findViewById(R.id.swipe_refresh);
         img_close=findViewById(R.id.img_close);
@@ -81,7 +88,8 @@ public class DashboardActivity extends AppCompatActivity implements ServiceConne
         btn_new=findViewById(R.id.btn_new);
         progress_bar=findViewById(R.id.progress_bar);
         mActivity=this;
-        requestPermission();
+
+        postVideoContent(FirebaseAuth.getInstance().getCurrentUser().getUid());
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         rcv_list.setLayoutManager(lm);
@@ -138,103 +146,46 @@ public class DashboardActivity extends AppCompatActivity implements ServiceConne
         });
 
     }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 786 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-        }
-
-    }
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 786);
-        } else {
-
-        }
+    protected void onStart() {
+        super.onStart();
+        checkForRecevingCall();
     }
 
-    String address="";
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        this.binder = (MainService.MainBinder) service;
-        try {
-            if (this.contact == null) {
-                // export own contact
-                this.contact = this.binder.getSettings().getOwnContact();
+    private void checkForRecevingCall() {
+        userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               Log.e("snapshot","value"+ snapshot.child("type").getValue().toString());
+
+               String type=snapshot.child("type").getValue().toString();
+               if (type.equals("Ringing")){
+                   Toast.makeText(mActivity, snapshot.child("type").getValue().toString(), Toast.LENGTH_SHORT).show();
+                   Intent intent= new Intent(DashboardActivity.this, CallingActivity.class);
+                   startActivity(intent);
+               }
+
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        try {
-             address = Contact.exportJSON(this.contact, false).toString();
-            postVideoContent(address);
-            Log.e("datas","datas"+address);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//          String data="{\"name\":\"Evan\",\"public_key\":\"3E22CD00AB870ECD6D1F2FF86BD49FFD837F3221D727DFA398423E013AB1DD14\",\"addresses\":[\"C0:EE:FB:F6:A2:C6\"]}";
-//////
-//////
-//            Contact  contacts=null;
-//        try {
-//            JSONObject object = new JSONObject(data);
-//            contacts = Contact.importJSON(object, false);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Intent intent = new Intent(MainActivity.this, CallActivity.class);
-//        intent.setAction("ACTION_OUTGOING_CALL");
-//        intent.putExtra("EXTRA_CONTACT", contacts);
-//        startActivity(intent);
+            }
+        });
     }
 
-    private void bindService() {
-        Intent serviceIntent = new Intent(this, MainService.class);
-        bindService(serviceIntent, this, Service.BIND_AUTO_CREATE);
-    }
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
 
-    }
-
-    @Override
-    public void onBindingDied(ComponentName name) {
-
-    }
-
-    @Override
-    public void onNullBinding(ComponentName name) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
     private void postVideoContent(String datas) {
         progress_bar.setVisibility(View.VISIBLE);
         Log.e("getUserID", "getUserID" + SharedPreferenceUtil.getUser(DashboardActivity.this));
         Log.e("getUserID", "getUserID" + datas);
-        compositeDisposable.add(mService.postVideoContent(Integer.parseInt(SharedPreferenceUtil.getUser(DashboardActivity.this)),address).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<APIResponses>() {
+        compositeDisposable.add(mService.postVideoContent(Integer.parseInt(SharedPreferenceUtil.getUser(DashboardActivity.this)),datas).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<APIResponses>() {
             @Override
             public void accept(APIResponses apiResponses) throws Exception {
-                Log.e("study", "study" + new Gson().toJson(apiResponses));
+                Log.e("postVideoContent", "postVideoContent" + new Gson().toJson(apiResponses));
 
-                String s="{\\\"name\\\":\\\"Unknown\\\",\\\"public_key\\\":\\\"F71FD23F2E7A41E4CBB20BA9857B26450D21B04144765F358D1E2269620B86AA\\\",\\\"addresses\\\":[\\\"C0:EE:FB:F6:A2:C6\\\"]}";
-                s = s.replace("\\", "");
-                Contact  contacts=null;
-                try {
-                    JSONObject object = new JSONObject(s);
-                    contacts = Contact.importJSON(object, false);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 progress_bar.setVisibility(View.GONE);
             }
         }, new Consumer<Throwable>() {
@@ -306,7 +257,7 @@ public class DashboardActivity extends AppCompatActivity implements ServiceConne
                 Log.e("study", "study" + new Gson().toJson(appointmentResponses));
                 Intent intent = new Intent(DashboardActivity.this, DoctorViewActivity.class);
                 intent.putExtra("patient", patientList);
-                intent.putExtra("appointment_id", appointmentResponses.data_list.get(0).appointment_id);
+                intent.putExtra("appointment_id", appointmentResponses.data_list.appointment_id);
                 startActivity(intent);
                 progress_bar.setVisibility(View.GONE);
             }
