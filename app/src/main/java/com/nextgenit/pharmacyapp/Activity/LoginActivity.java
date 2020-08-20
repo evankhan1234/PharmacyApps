@@ -1,5 +1,6 @@
 package com.nextgenit.pharmacyapp.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,6 +21,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.nextgenit.pharmacyapp.Network.IRetrofitApi;
 import com.nextgenit.pharmacyapp.NetworkModel.LoginResponses;
@@ -45,11 +50,13 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout rlt_root;
     boolean test = true;
     ImageView img;
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mService= Common.getApiXact();
+        auth = FirebaseAuth.getInstance();
         show_pass=findViewById(R.id.show_pass);
         img=findViewById(R.id.img);
         tv_sign_up=findViewById(R.id.tv_sign_up);
@@ -58,13 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         et_email=findViewById(R.id.et_email);
         et_password=findViewById(R.id.et_password);
         rlt_root=findViewById(R.id.rlt_root);
-        if (ContextCompat.checkSelfPermission(LoginActivity.this,
-                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(LoginActivity.this,
-                    new String[]{Manifest.permission.RECORD_AUDIO},
-                    100);
-        }
         tv_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,36 +133,47 @@ public class LoginActivity extends AppCompatActivity {
                     Util.snackBar("Password is Empty",rlt_root);
                 }
                 else{
-                    progress_bar.setVisibility(View.VISIBLE);
-                    compositeDisposable.add(mService.postLogin(email,password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<LoginResponses>() {
-                        @Override
-                        public void accept(LoginResponses loginEntity) throws Exception {
-                            Log.e("ff", "dgg" + new Gson().toJson(loginEntity));
+                    auth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()){
+                                        progress_bar.setVisibility(View.VISIBLE);
+                                        compositeDisposable.add(mService.postLogin(email,password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<LoginResponses>() {
+                                            @Override
+                                            public void accept(LoginResponses loginEntity) throws Exception {
+                                                Log.e("ff", "dgg" + new Gson().toJson(loginEntity));
 
-                            progress_bar.setVisibility(View.GONE);
-                            if (loginEntity.status.equals("success")) {
-                                SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.TYPE_USER_ID, loginEntity.user.user_no_pk + "");
-                                SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.USER_ID, loginEntity.user.person_no_fk + "");
-                                SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.TYPE_USER_NAME, loginEntity.user.user_fullname + "");
-                                Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginActivity.this,StartActivity.class));
-                                finish();
+                                                progress_bar.setVisibility(View.GONE);
+                                                if (loginEntity.status.equals("success")) {
+                                                    SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.TYPE_USER_ID, loginEntity.user.user_no_pk + "");
+                                                    SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.USER_ID, loginEntity.user.user_no_pk + "");
+                                                    SharedPreferenceUtil.saveShared(LoginActivity.this, SharedPreferenceUtil.TYPE_USER_NAME, loginEntity.user.user_fullname + "");
+                                                    Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(LoginActivity.this,DashboardActivity.class));
+                                                    finish();
 
-                            }
-                            else if (loginEntity.status.equals("failed")){
-                                Toast.makeText(LoginActivity.this, loginEntity.message, Toast.LENGTH_SHORT).show();
+                                                }
+                                                else if (loginEntity.status.equals("failed")){
+                                                    Toast.makeText(LoginActivity.this, loginEntity.message, Toast.LENGTH_SHORT).show();
 
-                            }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            progress_bar.setVisibility(View.GONE);
-                            Log.e("ff", "dgg" + throwable.getMessage());
-                            Toast.makeText(LoginActivity.this, "Unauthorized", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }, new Consumer<Throwable>() {
+                                            @Override
+                                            public void accept(Throwable throwable) throws Exception {
+                                                progress_bar.setVisibility(View.GONE);
+                                                Log.e("ff", "dgg" + throwable.getMessage());
+                                                Toast.makeText(LoginActivity.this, "Unauthorized", Toast.LENGTH_SHORT).show();
 
-                        }
-                    }));
+                                            }
+                                        }));
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Authentication failed!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
 
                 }
 

@@ -15,23 +15,12 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        if (!Utils.hasCameraPermission(this)) {
-            Utils.requestCameraPermission(this, CAMERA_PERMISSION_REQUEST_CODE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    goToLoginPage();
-                }
-            }, 3000);
-        }
-        else{
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    goToLoginPage();
-                }
-            }, 3000);
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                goToLoginPage();
+            }
+        }, 3000);
 
     }
     private void goToLoginPage() {
@@ -40,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         } else {
-            startActivity(new Intent(SplashActivity.this, StartActivity.class));
+            startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
             finish();
 
         }
