@@ -300,15 +300,6 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                 else if (phone.equals("") ){
                     Util.snackBar("Phone is Empty",rlt_root);
                 }
-                else if (weight.equals("") ){
-                    Util.snackBar("Weight is Empty",rlt_root);
-                }
-                else if (height.equals("") ){
-                    Util.snackBar("Height is Empty",rlt_root);
-                }
-                else if (desc.equals("") ){
-                    Util.snackBar("Description is Empty",rlt_root);
-                }
                 else{
                     Log.e("data","data"+name);
                     Log.e("data","data"+age);
