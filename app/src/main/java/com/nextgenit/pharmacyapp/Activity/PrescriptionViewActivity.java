@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class PrescriptionViewActivity extends AppCompatActivity {
     ArrayList<String> dose= new ArrayList<>();
     ArrayList<String> instruction= new ArrayList<>();
     ArrayList<String> medication= new ArrayList<>();
+    ImageView img_close;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,13 @@ public class PrescriptionViewActivity extends AppCompatActivity {
         tv_patient_name=findViewById(R.id.tv_patient_name);
         tv_patient_details=findViewById(R.id.tv_patient_details);
         tv_name=findViewById(R.id.tv_name);
+        img_close=findViewById(R.id.img_close);
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         LinearLayoutManager lm1 = new LinearLayoutManager(this);
         LinearLayoutManager lm2 = new LinearLayoutManager(this);
         LinearLayoutManager lm3 = new LinearLayoutManager(this);
@@ -131,7 +140,7 @@ public class PrescriptionViewActivity extends AppCompatActivity {
                 for (MedList medList:presecriptionListResponses.med_data){
                     dose.add(medList.dosage);
                     medication.add(medList.brand_name);
-                    instruction.add(medList.duration+" "+medList.duration_mu);
+                    instruction.add(medList.relation_with_meal+" ("+medList.duration+" "+medList.duration_mu+")");
                 }
                 rxDoseInstructionAdapter = new RxDoseInstructionAdapter(PrescriptionViewActivity.this, dose,instruction,medication);
                 rc_rx_duration.setAdapter(rxDoseInstructionAdapter);
