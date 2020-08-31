@@ -59,6 +59,7 @@ public class VideoChatActivity extends AppCompatActivity implements  Session.Ses
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(VideoChatActivity.this, DashboardActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 if (mPublisher!=null){

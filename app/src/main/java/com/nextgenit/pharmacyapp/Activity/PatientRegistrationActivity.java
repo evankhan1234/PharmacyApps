@@ -290,9 +290,12 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                 String weight=et_weight.getText().toString();
                 String height=et_height.getText().toString();
                 String desc=et_description.getText().toString();
-                if (name.equals("") && weight.equals("") && age.equals("") && phone.equals("") && height.equals("") && desc.equals("") ){
+                if (name.equals("")  && age.equals("") && phone.equals("") ){
 
                     Util.snackBar("All the fields are required",rlt_root);
+                }
+                else if (name.equals("") ){
+                    Util.snackBar("Name is Empty",rlt_root);
                 }
                 else if (age.equals("") ){
                     Util.snackBar("Age is Empty",rlt_root);

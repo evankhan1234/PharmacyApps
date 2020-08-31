@@ -82,9 +82,15 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
          holder.itemView.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 iClickListener.onView(messageEntities.get(position));
+                 iClickListener.onView(messageEntities.get(position),"View");
              }
          });
+        holder.img_appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickListener.onView(messageEntities.get(position),"Appointment");
+            }
+        });
     }
 
     @Override
@@ -102,6 +108,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         private TextView tv_phone_number;
         private TextView tv_remaining;
         private TextView tv_serial;
+        private ImageView img_appointment;
 
 
 
@@ -114,6 +121,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             tv_phone_number = itemView.findViewById(R.id.tv_phone_number);
             tv_remaining = itemView.findViewById(R.id.tv_remaining);
             tv_serial = itemView.findViewById(R.id.tv_serial);
+            img_appointment = itemView.findViewById(R.id.img_appointment);
 
 
 

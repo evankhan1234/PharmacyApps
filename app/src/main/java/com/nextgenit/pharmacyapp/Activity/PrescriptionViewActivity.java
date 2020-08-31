@@ -105,7 +105,12 @@ public class PrescriptionViewActivity extends AppCompatActivity {
                 tv_patient_name.setText(presecriptionListResponses.data_list.patient_name);
                 tv_name.setText(presecriptionListResponses.data_list.doctor_name);
                 tv_patient_details.setText("Age - "+presecriptionListResponses.data_list.age+", "+presecriptionListResponses.data_list.gender_txt);
-                tv_degree.setText(presecriptionListResponses.data_list.degree1+","+presecriptionListResponses.data_list.degree2);
+                if (presecriptionListResponses.data_list.degree1!=null){
+                    tv_degree.setText(presecriptionListResponses.data_list.degree1+","+presecriptionListResponses.data_list.degree2);
+                }
+                else{
+                    tv_degree.setText("");
+                }
                 progress_bar.setVisibility(View.GONE);
             }
         }, new Consumer<Throwable>() {
