@@ -1,6 +1,7 @@
 package com.nextgenit.pharmacyapp.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
@@ -197,7 +199,27 @@ public class DashboardActivity extends AppCompatActivity  {
         }));
 
     }
+    public void open(PatientList patientList){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you want to appoint Doctor Serial?");
+                alertDialogBuilder.setPositiveButton("yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                load(patientList);
+                            }
+                        });
 
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
     private void loadSearchData(String data) {
         progress_bar.setVisibility(View.VISIBLE);
         compositeDisposable.add(mService.getSearchPatientList(SharedPreferenceUtil.getUserID(DashboardActivity.this),data).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<PatientListResponses>() {
@@ -240,8 +262,17 @@ public class DashboardActivity extends AppCompatActivity  {
     }
     IClickListener iClickListener = new IClickListener() {
         @Override
-        public void onView(PatientList patientList) {
-            load(patientList);
+        public void onView(PatientList patientList,String type) {
+            if (type.equals("Appointment")){
+                open(patientList);
+            }
+            else{
+                Intent intent = new Intent(DashboardActivity.this, DoctorViewActivity.class);
+                intent.putExtra("patient", patientList);
+                intent.putExtra("appointment_id", patientList.appoint_no_pk);
+                startActivity(intent);
+            }
+
 
         }
     };
