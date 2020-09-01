@@ -292,7 +292,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                 String desc=et_description.getText().toString();
                 if (name.equals("")  && age.equals("") && phone.equals("") ){
 
-                    Util.snackBar("All the fields are required",rlt_root);
+                    Util.snackBar("Please fill up the required fields.",rlt_root);
                 }
                 else if (name.equals("") ){
                     Util.snackBar("Name is Empty",rlt_root);

@@ -42,6 +42,7 @@ public class CallingActivity extends AppCompatActivity {
                 status(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 Intent intent= new Intent(CallingActivity.this, VideoChatActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         cancelCallBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +80,7 @@ public class CallingActivity extends AppCompatActivity {
 
                 String type=snapshot.child("type").getValue().toString();
                 if (type.equals("End")){
-
+                    mediaPlayer.stop();
                     Intent intent= new Intent(CallingActivity.this, DashboardActivity.class);
                     startActivity(intent);
                     finish();
