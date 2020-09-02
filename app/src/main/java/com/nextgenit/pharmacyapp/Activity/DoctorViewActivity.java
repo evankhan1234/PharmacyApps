@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -65,6 +66,8 @@ public class DoctorViewActivity extends AppCompatActivity {
     private  TextView tv_degree3;
     private  TextView tv_degree4;
     Button btn_cancel;
+    LinearLayout linear_doctor;
+    RelativeLayout relative_one;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,8 @@ public class DoctorViewActivity extends AppCompatActivity {
         mActivity=this;
         cart=findViewById(R.id.cart);
         btn_cancel=findViewById(R.id.btn_cancel);
+        relative_one=findViewById(R.id.relative_one);
+        linear_doctor=findViewById(R.id.linear_doctor);
         tv_doctor_name=findViewById(R.id.tv_doctor_name);
         tv_serial=findViewById(R.id.tv_serial);
         rcv_list=findViewById(R.id.rcv_list);
@@ -91,6 +96,9 @@ public class DoctorViewActivity extends AppCompatActivity {
         img_close=findViewById(R.id.img_close);
 
         appointmentId = getIntent().getIntExtra("appointment_id",0);
+        if (appointmentId==0){
+            relative_one.setVisibility(View.GONE);
+        }
        // specialist = getIntent().getExtras().getParcelable("specialist");
         patientList = getIntent().getExtras().getParcelable("patient");
        // doctorList = getIntent().getExtras().getParcelable("foo");
