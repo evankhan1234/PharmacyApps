@@ -57,7 +57,8 @@ public interface IRetrofitApi {
     @FormUrlEncoded
     @POST("auth/login")
     io.reactivex.Observable<LoginResponses> postLogin(@Field("email") String email,
-                                                      @Field("password") String password);
+                                                      @Field("password") String password,
+                                                      @Field("access_point") String access_point);
 
     @FormUrlEncoded
     @POST("auth/store-video-content")

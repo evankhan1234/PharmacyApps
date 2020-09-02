@@ -269,7 +269,12 @@ public class DashboardActivity extends AppCompatActivity  {
             else{
                 Intent intent = new Intent(DashboardActivity.this, DoctorViewActivity.class);
                 intent.putExtra("patient", patientList);
-                intent.putExtra("appointment_id", patientList.appoint_no_pk);
+                if (patientList.appoint_no_pk!=null){
+                    intent.putExtra("appointment_id", Integer.parseInt(patientList.appoint_no_pk));
+                }
+                else{
+                    intent.putExtra("appointment_id",0);
+                }
                 startActivity(intent);
             }
 
