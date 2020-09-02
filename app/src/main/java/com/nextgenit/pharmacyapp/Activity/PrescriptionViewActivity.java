@@ -93,6 +93,8 @@ public class PrescriptionViewActivity extends AppCompatActivity {
         rc_rx_diagnosis.setLayoutManager(lm2);
         rc_investigation.setLayoutManager(lm3);
         rc_advise.setLayoutManager(lm4);
+        loadDataAll();
+        loadData();
     }
 
     private void loadDataAll() {
@@ -169,8 +171,7 @@ public class PrescriptionViewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadDataAll();
-        loadData();
+
     }
 
     @Override
