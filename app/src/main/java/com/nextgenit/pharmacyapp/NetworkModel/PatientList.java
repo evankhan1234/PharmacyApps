@@ -47,6 +47,12 @@ public class PatientList implements Parcelable {
     @SerializedName("appoint_no_pk")
     public String  appoint_no_pk;
 
+    @SerializedName("prescription_no_pk")
+    public String  prescription_no_pk;
+    @SerializedName("prescription_code")
+    public String  prescription_code;
+    @SerializedName("appoint_date")
+    public String  appoint_date;
 
     protected PatientList(Parcel in) {
         patient_no_pk = in.readInt();
@@ -69,23 +75,9 @@ public class PatientList implements Parcelable {
         remainingtime_txt = in.readString();
         slot_sl = in.readString();
         appoint_no_pk = in.readString();
-    }
-
-    public static final Creator<PatientList> CREATOR = new Creator<PatientList>() {
-        @Override
-        public PatientList createFromParcel(Parcel in) {
-            return new PatientList(in);
-        }
-
-        @Override
-        public PatientList[] newArray(int size) {
-            return new PatientList[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+        prescription_no_pk = in.readString();
+        prescription_code = in.readString();
+        appoint_date = in.readString();
     }
 
     @Override
@@ -110,5 +102,25 @@ public class PatientList implements Parcelable {
         dest.writeString(remainingtime_txt);
         dest.writeString(slot_sl);
         dest.writeString(appoint_no_pk);
+        dest.writeString(prescription_no_pk);
+        dest.writeString(prescription_code);
+        dest.writeString(appoint_date);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<PatientList> CREATOR = new Creator<PatientList>() {
+        @Override
+        public PatientList createFromParcel(Parcel in) {
+            return new PatientList(in);
+        }
+
+        @Override
+        public PatientList[] newArray(int size) {
+            return new PatientList[size];
+        }
+    };
 }

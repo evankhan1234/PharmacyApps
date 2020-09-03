@@ -54,15 +54,12 @@ public class SpecialistActivity extends AppCompatActivity {
     }
     private void loadData() {
         progress_bar.setVisibility(View.VISIBLE);
-        compositeDisposable.add(mService.getSpecialList().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<SpecialistResponses>() {
-            @Override
-            public void accept(SpecialistResponses specialistResponses) throws Exception {
-                Log.e("study", "study" + new Gson().toJson(specialistResponses));
-                specialistAdapter = new SpecialistAdapter(mActivity, specialistResponses.data_list,specialityViewListener);
+        compositeDisposable.add(mService.getSpecialList().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(specialistResponses -> {
+            Log.e("study", "study" + new Gson().toJson(specialistResponses));
+            specialistAdapter = new SpecialistAdapter(mActivity, specialistResponses.data_list,specialityViewListener);
 
-                rcv_list.setAdapter(specialistAdapter);
-                progress_bar.setVisibility(View.GONE);
-            }
+            rcv_list.setAdapter(specialistAdapter);
+            progress_bar.setVisibility(View.GONE);
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {

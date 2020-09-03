@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,11 +20,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.nextgenit.pharmacyapp.Adapter.DashboardAdapter;
+import com.nextgenit.pharmacyapp.Adapter.DoctorListAdapter;
 import com.nextgenit.pharmacyapp.Adapter.PrescriptionAdapter;
+import com.nextgenit.pharmacyapp.Adapter.SpecialistAdapter;
 import com.nextgenit.pharmacyapp.Network.IRetrofitApi;
 import com.nextgenit.pharmacyapp.NetworkModel.AppointmentDoctorLIstResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.AppointmentResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.DoctorList;
+import com.nextgenit.pharmacyapp.NetworkModel.DoctorListResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.PatientList;
 import com.nextgenit.pharmacyapp.NetworkModel.PresecriptionListResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.Specialist;
@@ -75,6 +79,9 @@ public class DoctorViewActivity extends AppCompatActivity {
     Button btn_ok;
     LinearLayout linear_doctor;
     RelativeLayout relative_one;
+    String type="";
+    String amount="";
+    String doctorId="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +152,52 @@ public class DoctorViewActivity extends AppCompatActivity {
             user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.female));
         }
     }
+    private void loadSettings() {
+        progress_bar.setVisibility(View.VISIBLE);
+        compositeDisposable.add(mService.getSettings().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(settingResponses -> {
+            Log.e("loadSettings", "loadSettings" + new Gson().toJson(settingResponses));
+            type=settingResponses.data_list.doctor_fee_type;
+            if (type.equals("GLOBAL")){
+                amount=settingResponses.data_list.global_doctor_fee;
+            }
+            else{
+                loadDoctorDetails(doctorId);
+            }
+
+            progress_bar.setVisibility(View.GONE);
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e("study", "study" + throwable.getMessage());
+                progress_bar.setVisibility(View.GONE);
+            }
+        }));
+
+    }
+    private void loadDoctorDetails(String data) {
+        progress_bar.setVisibility(View.VISIBLE);
+        compositeDisposable.add(mService.getDoctorList(data).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<DoctorListResponses>() {
+            @Override
+            public void accept(DoctorListResponses doctorListResponses) throws Exception {
+                Log.e("study", "study" + new Gson().toJson(doctorListResponses));
+                if (doctorListResponses.data_list.get(0).doctor_fee!=null){
+                    amount=doctorListResponses.data_list.get(0).doctor_fee;
+                }
+                else{
+                    amount="1";
+                }
+
+                progress_bar.setVisibility(View.GONE);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e("study", "study" + throwable.getMessage());
+                progress_bar.setVisibility(View.GONE);
+            }
+        }));
+
+    }
     private void ammarpay() {
         RequiredFields requiredFields = new RequiredFields(
                 patientList.patient_name,
@@ -156,7 +209,7 @@ public class DoctorViewActivity extends AppCompatActivity {
                 "Country",
                 patientList.mobile1,
                 "Description",
-                "1",
+                amount,
                 Params.CURRENCY_BDT,
                 "A205220",
                 "bluescareaid",
@@ -183,9 +236,9 @@ public class DoctorViewActivity extends AppCompatActivity {
         PayByAamarPay.getInstance(DoctorViewActivity.this, requiredFields, optionalFields).payNow(new OnPaymentRequestListener() {
             @Override
             public void onPaymentResponse(int paymentStatus, PaymentResponse paymentResponse) {
-                System.out.println("paymentStatus: " + paymentStatus);
+                Log.e("paymentStatus: " ,""+ paymentStatus);
                 //Here you can view all the response in one place
-                System.out.println("Response: " + new Gson().toJson(paymentResponse));
+                Log.e("Response: " ,""+ new Gson().toJson(paymentResponse));
             }
         });
     }
@@ -199,6 +252,7 @@ public class DoctorViewActivity extends AppCompatActivity {
             @Override
             public void accept(AppointmentDoctorLIstResponses appointmentResponses) throws Exception {
                 Log.e("study", "study" + new Gson().toJson(appointmentResponses));
+                doctorId=appointmentResponses.data_list.doctor_no_fk;
                 tv_doctor_name.setText(appointmentResponses.data_list.full_name);
                 tv_name.setText(appointmentResponses.data_list.specialization);
                 tv_serial.setText(appointmentResponses.data_list.slot_sl);
@@ -264,6 +318,13 @@ public class DoctorViewActivity extends AppCompatActivity {
         super.onResume();
         load();
         loadDataAll();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadSettings();
+            }
+        }, 300);
+
     }
 
     @Override

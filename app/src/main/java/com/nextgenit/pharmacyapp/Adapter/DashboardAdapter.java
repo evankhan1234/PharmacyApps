@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +18,10 @@ import com.nextgenit.pharmacyapp.Interface.IClickListener;
 import com.nextgenit.pharmacyapp.NetworkModel.PatientList;
 import com.nextgenit.pharmacyapp.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -91,6 +96,44 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                 iClickListener.onView(messageEntities.get(position),"Appointment");
             }
         });
+        if (patientList.appoint_date!=null){
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(patientList.appoint_date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = new Date(System.currentTimeMillis());
+            String currentDate = formatter.format(date1);
+            String appointDate = formatter.format(date);
+            if (currentDate.equals(appointDate)){
+                holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.two));
+                holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
+                holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.white));
+                holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.white));
+                holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.white));
+                holder.relative_one.setVisibility(View.GONE);
+            }
+            else{
+                holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.one));
+                holder.relative_one.setVisibility(View.VISIBLE);
+                holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
+                holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+
+            }
+        }
+        else{
+            holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.one));
+            holder.relative_one.setVisibility(View.VISIBLE);
+            holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
+            holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+            holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+            holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+        }
+
     }
 
     @Override
@@ -109,6 +152,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         private TextView tv_remaining;
         private TextView tv_serial;
         private ImageView img_appointment;
+        private LinearLayout linear;
+        private RelativeLayout relative_one;
 
 
 
@@ -122,6 +167,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             tv_remaining = itemView.findViewById(R.id.tv_remaining);
             tv_serial = itemView.findViewById(R.id.tv_serial);
             img_appointment = itemView.findViewById(R.id.img_appointment);
+            linear = itemView.findViewById(R.id.linear);
+            relative_one = itemView.findViewById(R.id.relative_one);
 
 
 

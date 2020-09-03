@@ -95,6 +95,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -113,7 +114,6 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/card_view"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
                 card_view:listitem="@layout/layout_dashboard_list"
                 android:layout_marginRight="10dp"
                 android:visibility="visible" />
