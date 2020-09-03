@@ -45,8 +45,8 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Sp
 
 
 //        Log.e("Evan", "SDfs" + messageEntities.get(position));
-        holder.tv_name.setText(messageEntities.get(position).full_name);
-        holder.tv_specialized.setText(messageEntities.get(position).specialization);
+//        holder.tv_name.setText(messageEntities.get(position).full_name);
+//        holder.tv_specialized.setText(messageEntities.get(position).specialization);
 
         Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
 

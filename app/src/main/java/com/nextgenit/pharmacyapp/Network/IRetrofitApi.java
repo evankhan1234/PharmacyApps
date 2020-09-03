@@ -12,6 +12,7 @@ import com.nextgenit.pharmacyapp.NetworkModel.PrescriptionListHeaderResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.PresecriptionListResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.PresecriptionViewResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.RegistrationResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.SettingResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.SpecialistResponses;
 
 import retrofit2.http.Field;
@@ -53,6 +54,9 @@ public interface IRetrofitApi {
     @GET("auth/spl-wise-doc-reg")
     io.reactivex.Observable<SpecialistResponses> getSpecialList();
 
+    @GET("auth/app-settings")
+    io.reactivex.Observable<SettingResponses> getSettings();
+
     //
     @FormUrlEncoded
     @POST("auth/login")
@@ -72,7 +76,7 @@ public interface IRetrofitApi {
 
     @FormUrlEncoded
     @POST("auth/doctor-list")
-    io.reactivex.Observable<DoctorListResponses> getDoctorList(@Field("specialization_id") String specialization_id
+    io.reactivex.Observable<DoctorListResponses> getDoctorList(@Field("doctor_id") String doctor_id
     );
 
     @FormUrlEncoded

@@ -52,6 +52,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,7 +96,7 @@ public class DashboardActivity extends AppCompatActivity  {
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         rcv_list.setLayoutManager(lm);
-        loadData();
+
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +148,12 @@ public class DashboardActivity extends AppCompatActivity  {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
     }
 
     @Override
@@ -263,8 +270,34 @@ public class DashboardActivity extends AppCompatActivity  {
     IClickListener iClickListener = new IClickListener() {
         @Override
         public void onView(PatientList patientList,String type) {
-            if (type.equals("Appointment")){
-                open(patientList);
+            if (type.equals("Appointment"))
+            {
+                if (patientList.appoint_date!=null){
+                    Date date = null;
+                    try {
+                        date = new SimpleDateFormat("yyyy-MM-dd").parse(patientList.appoint_date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = new Date(System.currentTimeMillis());
+                    String currentDate = formatter.format(date1);
+                    String appointDate = formatter.format(date);
+                    if (currentDate.equals(appointDate)){
+                        Intent intent = new Intent(DashboardActivity.this, DoctorViewActivity.class);
+                        intent.putExtra("patient", patientList);
+                        intent.putExtra("appointment_id", Integer.parseInt(patientList.appoint_no_pk));
+                        startActivity(intent);
+                    }
+                    else{
+                        open(patientList);
+                    }
+
+                }
+                else{
+                    open(patientList);
+                }
+
             }
             else{
                 Intent intent = new Intent(DashboardActivity.this, DoctorViewActivity.class);
