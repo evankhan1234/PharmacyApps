@@ -30,6 +30,12 @@ import com.nextgenit.pharmacyapp.NetworkModel.Specialist;
 import com.nextgenit.pharmacyapp.R;
 import com.nextgenit.pharmacyapp.Utils.Common;
 import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
+import com.softbd.aamarpay.PayByAamarPay;
+import com.softbd.aamarpay.interfaces.OnPaymentRequestListener;
+import com.softbd.aamarpay.model.OptionalFields;
+import com.softbd.aamarpay.model.PaymentResponse;
+import com.softbd.aamarpay.model.RequiredFields;
+import com.softbd.aamarpay.utils.Params;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -66,6 +72,7 @@ public class DoctorViewActivity extends AppCompatActivity {
     private  TextView tv_degree3;
     private  TextView tv_degree4;
     Button btn_cancel;
+    Button btn_ok;
     LinearLayout linear_doctor;
     RelativeLayout relative_one;
     @Override
@@ -75,6 +82,7 @@ public class DoctorViewActivity extends AppCompatActivity {
         mService= Common.getApiXact();
         mActivity=this;
         cart=findViewById(R.id.cart);
+        btn_ok=findViewById(R.id.btn_ok);
         btn_cancel=findViewById(R.id.btn_cancel);
         relative_one=findViewById(R.id.relative_one);
         linear_doctor=findViewById(R.id.linear_doctor);
@@ -94,7 +102,12 @@ public class DoctorViewActivity extends AppCompatActivity {
 
         progress_bar=findViewById(R.id.progress_bar);
         img_close=findViewById(R.id.img_close);
-
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ammarpay();
+            }
+        });
         appointmentId = getIntent().getIntExtra("appointment_id",0);
         if (appointmentId==0){
             relative_one.setVisibility(View.GONE);
@@ -131,6 +144,50 @@ public class DoctorViewActivity extends AppCompatActivity {
         else{
             user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.female));
         }
+    }
+    private void ammarpay() {
+        RequiredFields requiredFields = new RequiredFields(
+                patientList.patient_name,
+                "default@email.com",
+                "Address 1",
+                "City",
+                "State",
+                "1234",
+                "Country",
+                patientList.mobile1,
+                "Description",
+                "1",
+                Params.CURRENCY_BDT,
+                "A205220",
+                "bluescareaid",
+                "f16db1729e23f68380decf3fbb3c184a",
+                "https://sandbox.aamarpay.com/success.php",
+                "https://sandbox.aamarpay.com/failed.php",
+                "https://sandbox.aamarpay.com/failed.php"
+        );
+        OptionalFields optionalFields = new OptionalFields(
+                "cus address 2",
+                "cus fax",
+                "ship name",
+                "ship address1",
+                "ship address 2",
+                "ship city",
+                "ship state",
+                "ship postcode",
+                "ship country",
+                "optional string",
+                "optional string",
+                "optional string",
+                "optional string"
+        );
+        PayByAamarPay.getInstance(DoctorViewActivity.this, requiredFields, optionalFields).payNow(new OnPaymentRequestListener() {
+            @Override
+            public void onPaymentResponse(int paymentStatus, PaymentResponse paymentResponse) {
+                System.out.println("paymentStatus: " + paymentStatus);
+                //Here you can view all the response in one place
+                System.out.println("Response: " + new Gson().toJson(paymentResponse));
+            }
+        });
     }
     private void load() {
         progress_bar.setVisibility(View.VISIBLE);
