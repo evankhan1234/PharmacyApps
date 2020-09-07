@@ -7,10 +7,12 @@ import android.Manifest;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,7 +20,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.nextgenit.pharmacyapp.Network.IRetrofitApi;
+import com.nextgenit.pharmacyapp.NetworkModel.ContentResponses;
 import com.nextgenit.pharmacyapp.R;
+import com.nextgenit.pharmacyapp.Utils.Common;
+import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -28,13 +35,17 @@ import com.opentok.android.Subscriber;
 
 import java.util.HashMap;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class VideoChatActivity extends AppCompatActivity implements  Session.SessionListener, PublisherKit.PublisherListener {
     public static final String API_KEY = "46887094";
-    public static final String SESSION_ID = "1_MX40Njg4NzA5NH5-MTU5NzY1NDY0ODk2Nn5xWTBLdzB3M0xaVlJ1ZVAxcjZ3SjB4Y2R-fg";
-    public static final String TOKEN = "T1==cGFydG5lcl9pZD00Njg4NzA5NCZzaWc9OTYzZDM3YmNiMmMzNDE0NDlmODFhZTc2YWExYTY5ZjM2YzBlNDIxNTpzZXNzaW9uX2lkPTFfTVg0ME5qZzROekE1Tkg1LU1UVTVOelkxTkRZME9EazJObjV4V1RCTGR6QjNNMHhhVmxKMVpWQXhjalozU2pCNFkyUi1mZyZjcmVhdGVfdGltZT0xNTk3NjU0NjY1Jm5vbmNlPTAuMjcyMTE4MDU5MTI5MDk1NyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAwMjkzMzIzJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
+    public static String SESSION_ID = "";
+    public static  String TOKEN = "";
     private static final String TAG = VideoChatActivity.class.getSimpleName();
     private static final int RC_VIDEO_APP_PERM = 124;
     private ImageView closeVideoChatBtn;
@@ -45,13 +56,14 @@ public class VideoChatActivity extends AppCompatActivity implements  Session.Ses
     private Session mSession;
     private Publisher mPublisher;
     private Subscriber mSubscriber;
-
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    IRetrofitApi mService;
     DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_chat);
-
+        mService= Common.getApiXact();
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         closeVideoChatBtn = findViewById(R.id.close_video_chat_btn);
@@ -72,9 +84,50 @@ public class VideoChatActivity extends AppCompatActivity implements  Session.Ses
             }
 
         });
-        requestPermissions();
+
+
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadVideoData(Integer.parseInt(SharedPreferenceUtil.getUserID(VideoChatActivity.this)));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
+    }
+    private void loadVideoData(int pharmacyId) {
+
+
+        compositeDisposable.add(mService.getVideoContent(pharmacyId).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<ContentResponses>() {
+            @Override
+            public void accept(ContentResponses contentResponses) throws Exception {
+                Log.e("study", "study" + new Gson().toJson(contentResponses));
+
+                SESSION_ID=contentResponses.data_list.session_id;
+                TOKEN=contentResponses.data_list.session_token;
+                if (contentResponses.data_list.session_id!=null){
+                    requestPermissions();
+                }
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e("study", "study" + throwable.getMessage());
+
+            }
+        }));
+
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
