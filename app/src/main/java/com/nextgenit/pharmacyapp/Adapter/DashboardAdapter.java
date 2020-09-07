@@ -108,12 +108,23 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             String currentDate = formatter.format(date1);
             String appointDate = formatter.format(date);
             if (currentDate.equals(appointDate)){
-                holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.two));
-                holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.relative_one.setVisibility(View.GONE);
+                if (messageEntities.get(position).prescription_no_pk!=null){
+                    holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.two));
+                    holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
+                    holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.white));
+                    holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.white));
+                    holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.white));
+                    holder.relative_one.setVisibility(View.GONE);
+                }
+                else{
+                    holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.one));
+                    holder.relative_one.setVisibility(View.VISIBLE);
+                    holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
+                    holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                }
+
             }
             else{
                 holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.one));
