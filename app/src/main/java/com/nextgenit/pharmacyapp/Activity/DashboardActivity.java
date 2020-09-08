@@ -170,7 +170,7 @@ public class DashboardActivity extends AppCompatActivity  {
 
                String type=snapshot.child("type").getValue().toString();
                if (type.equals("Ringing")){
-                   Toast.makeText(mActivity, snapshot.child("type").getValue().toString(), Toast.LENGTH_SHORT).show();
+                 //  Toast.makeText(mActivity, snapshot.child("type").getValue().toString(), Toast.LENGTH_SHORT).show();
                    Intent intent= new Intent(DashboardActivity.this, CallingActivity.class);
                    startActivity(intent);
                }
@@ -283,7 +283,7 @@ public class DashboardActivity extends AppCompatActivity  {
                     Date date1 = new Date(System.currentTimeMillis());
                     String currentDate = formatter.format(date1);
                     String appointDate = formatter.format(date);
-                    if (currentDate.equals(appointDate)){
+                    if (appointDate.equals(currentDate)){
                         Intent intent = new Intent(DashboardActivity.this, DoctorViewActivity.class);
                         intent.putExtra("patient", patientList);
                         intent.putExtra("appointment_id", Integer.parseInt(patientList.appoint_no_pk));
