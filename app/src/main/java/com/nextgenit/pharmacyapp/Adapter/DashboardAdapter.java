@@ -51,10 +51,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
 
         Log.e("Evan", "SDfs" + messageEntities.get(position));
-         holder.tv_name.setText(messageEntities.get(position).patient_name);
-         holder.tv_phone_number.setText(messageEntities.get(position).mobile1);
-         holder.tv_age.setText("Age - "+messageEntities.get(position).age+","+messageEntities.get(position).gender_txt);
-       //  Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
+        holder.tv_name.setText(messageEntities.get(position).patient_name);
+        holder.tv_phone_number.setText(messageEntities.get(position).mobile1);
+        holder.tv_age.setText("Age - "+messageEntities.get(position).age+","+messageEntities.get(position).gender_txt);
+        //  Glide.with(mActivity).load("https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg").placeholder(R.mipmap.ic_launcher).into(holder.user_icon);
 
         if (messageEntities.get(position).gender_txt.equals("Male")){
             holder.user_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.male));
@@ -76,7 +76,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
         if(messageEntities.get(position).appoint_no_pk!=null){
             holder.tv_remaining.setText(messageEntities.get(position).remainingtime_txt);
-          //  holder.tv_remaining.setText("আর মাত্র "+ messageEntities.get(position).remainingtime_txt+"মিনিট");
+            //  holder.tv_remaining.setText("আর মাত্র "+ messageEntities.get(position).remainingtime_txt+"মিনিট");
         }
         else{
             holder.tv_remaining.setVisibility(View.GONE);
@@ -84,20 +84,19 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         }
 
 
-         holder.itemView.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 iClickListener.onView(messageEntities.get(position),"View");
-             }
-         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickListener.onView(messageEntities.get(position),"View");
+            }
+        });
         holder.img_appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iClickListener.onView(messageEntities.get(position),"Appointment");
             }
         });
-        if (patientList.appoint_date!=null)
-        {
+        if (patientList.appoint_date!=null){
             Date date = null;
             try {
                 date = new SimpleDateFormat("yyyy-MM-dd").parse(patientList.appoint_date);
@@ -108,17 +107,29 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             Date date1 = new Date(System.currentTimeMillis());
             String currentDate = formatter.format(date1);
             String appointDate = formatter.format(date);
-            if (appointDate.equals(currentDate)){
-                holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.two));
-                holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.white));
-                holder.relative_one.setVisibility(View.GONE);
+            if (currentDate.equals(appointDate))
+            {
+                if (messageEntities.get(position).prescription_no_pk!=null){
+                    holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.two));
+                    holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.relative_one.setVisibility(View.GONE);
+                }
+                else{
+                    holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.one));
+                    holder.relative_one.setVisibility(View.VISIBLE);
+                    holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
+                    holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                    holder.tv_age.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
+                }
+
             }
             else{
                 holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.one));
-                holder.relative_one.setVisibility(View.VISIBLE);
+                holder.relative_one.setVisibility(View.GONE);
                 holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
                 holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));
                 holder.tv_phone_number.setTextColor(mActivity.getResources().getColor(R.color.colorPrimary));

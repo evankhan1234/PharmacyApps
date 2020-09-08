@@ -170,7 +170,7 @@ public class DashboardActivity extends AppCompatActivity  {
 
                String type=snapshot.child("type").getValue().toString();
                if (type.equals("Ringing")){
-                   Toast.makeText(mActivity, snapshot.child("type").getValue().toString(), Toast.LENGTH_SHORT).show();
+                 //  Toast.makeText(mActivity, snapshot.child("type").getValue().toString(), Toast.LENGTH_SHORT).show();
                    Intent intent= new Intent(DashboardActivity.this, CallingActivity.class);
                    startActivity(intent);
                }

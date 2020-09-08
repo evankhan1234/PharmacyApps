@@ -3,6 +3,7 @@ package com.nextgenit.pharmacyapp.Network;
 import com.nextgenit.pharmacyapp.NetworkModel.APIResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.AppointmentDoctorLIstResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.AppointmentResponses;
+import com.nextgenit.pharmacyapp.NetworkModel.ContentResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.DoctorListResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.LoginResponses;
 import com.nextgenit.pharmacyapp.NetworkModel.OccupationResponses;
@@ -24,7 +25,9 @@ public interface IRetrofitApi {
     @FormUrlEncoded
     @POST("auth/patient-list")
     io.reactivex.Observable<PatientListResponses> getPatientList(@Field("pharmacy_id") String pharmacy_id);
-
+    @FormUrlEncoded
+    @POST("auth/get-video-content")
+    io.reactivex.Observable<ContentResponses> getVideoContent(@Field("pharmacy_id") int pharmacy_id);
     @FormUrlEncoded
     @POST("auth/patient-list")
     io.reactivex.Observable<PatientListResponses> getSearchPatientList(@Field("pharmacy_id") String pharmacy_id, @Field("search_string") String search_string);
