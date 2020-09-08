@@ -96,7 +96,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                 iClickListener.onView(messageEntities.get(position),"Appointment");
             }
         });
-        if (patientList.appoint_date!=null){
+        if (patientList.appoint_date!=null)
+        {
             Date date = null;
             try {
                 date = new SimpleDateFormat("yyyy-MM-dd").parse(patientList.appoint_date);
@@ -107,7 +108,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             Date date1 = new Date(System.currentTimeMillis());
             String currentDate = formatter.format(date1);
             String appointDate = formatter.format(date);
-            if (currentDate.equals(appointDate)){
+            if (appointDate.equals(currentDate)){
                 holder.linear.setBackgroundColor(mActivity.getResources().getColor(R.color.two));
                 holder.tv_serial.setTextColor(mActivity.getResources().getColor(R.color.white));
                 holder.tv_name.setTextColor(mActivity.getResources().getColor(R.color.white));
