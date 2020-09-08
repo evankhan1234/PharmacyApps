@@ -169,9 +169,11 @@ public class DashboardActivity extends AppCompatActivity  {
                Log.e("snapshot","value"+ snapshot.child("type").getValue().toString());
 
                String type=snapshot.child("type").getValue().toString();
+               String call=snapshot.child("call").getValue().toString();
                if (type.equals("Ringing")){
                  //  Toast.makeText(mActivity, snapshot.child("type").getValue().toString(), Toast.LENGTH_SHORT).show();
                    Intent intent= new Intent(DashboardActivity.this, CallingActivity.class);
+                   intent.putExtra("call",call);
                    startActivity(intent);
                }
 
