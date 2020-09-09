@@ -321,7 +321,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             hashMap.put("email", email);
                             hashMap.put("name", username);
                             hashMap.put("type", "default");
-
+                            hashMap.put("call", "default");
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,15 +27,20 @@ public class CallingActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     DatabaseReference reference;
     private DatabaseReference usersRef;
+    String name="";
+    TextView name_calling;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calling);
+        name = getIntent().getStringExtra("call");
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         cancelCallBtn=findViewById(R.id.cancel_call);
         makeCallBtn=findViewById(R.id.make_call);
+        name_calling=findViewById(R.id.name_calling);
         mediaPlayer=MediaPlayer.create(this,R.raw.ringing);
         mediaPlayer.start();
+        name_calling.setText(name);
         makeCallBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
