@@ -4,4 +4,6 @@
     <base-config cleartextTrafficPermitted="true" />
     <domain includeSubdomains="true"
         tools:ignore="NetworkSecurityConfig">103.245.108.118</domain>
+    <domain includeSubdomains="true"
+        tools:ignore="NetworkSecurityConfig">199.192.28.11</domain>
 </network-security-config>

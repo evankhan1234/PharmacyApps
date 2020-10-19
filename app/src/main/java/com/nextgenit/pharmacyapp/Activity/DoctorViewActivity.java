@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -34,6 +35,11 @@ import com.nextgenit.pharmacyapp.NetworkModel.Specialist;
 import com.nextgenit.pharmacyapp.R;
 import com.nextgenit.pharmacyapp.Utils.Common;
 import com.nextgenit.pharmacyapp.Utils.SharedPreferenceUtil;
+import com.sm.shurjopaysdk.listener.PaymentResultListener;
+import com.sm.shurjopaysdk.model.RequiredDataModel;
+import com.sm.shurjopaysdk.model.TransactionInfo;
+import com.sm.shurjopaysdk.payment.ShurjoPaySDK;
+import com.sm.shurjopaysdk.utils.SPayConstants;
 import com.softbd.aamarpay.PayByAamarPay;
 import com.softbd.aamarpay.interfaces.OnPaymentRequestListener;
 import com.softbd.aamarpay.model.OptionalFields;
@@ -111,8 +117,28 @@ public class DoctorViewActivity extends AppCompatActivity {
         img_close=findViewById(R.id.img_close);
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                ammarpay();
+            public void onClick(View v)
+            {
+                //ammarpay();
+                SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
+                Date date1 = new Date(System.currentTimeMillis());
+                String currentDate = formatter.format(date1);
+                RequiredDataModel requiredDataModel = new RequiredDataModel("bcaidltd", "onrBlzu04wqA", "BCL"+currentDate, Double.parseDouble(amount));
+                ShurjoPaySDK.getInstance().makePayment(DoctorViewActivity.this, SPayConstants.SdkType.LIVE, requiredDataModel, new PaymentResultListener() {
+
+                    @Override
+                    public void onSuccess(TransactionInfo transactionInfo) {
+                        Log.d("TAG", "onSuccess: transactionInfo = " + transactionInfo);
+                        Toast.makeText(DoctorViewActivity.this, "onSuccess: transactionInfo = " +
+                                transactionInfo, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+                        Log.d("TAG", "onFailed: message = " + message);
+                        Toast.makeText(DoctorViewActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         appointmentId = getIntent().getIntExtra("appointment_id",0);
