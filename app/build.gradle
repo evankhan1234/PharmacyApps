@@ -13,8 +13,8 @@ android {
         applicationId "com.nextgenit.pharmacyapp"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "4.0"
 
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -67,6 +67,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.5.0'
     implementation 'com.firebaseui:firebase-ui-database:3.2.2'
     //add this
+    implementation project(':shurjopaysdk-v1.1')
     implementation 'pub.devrel:easypermissions:0.4.0'
     implementation "com.opentok.android:opentok-android-sdk:2.15.3"
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -76,7 +77,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project(':AamarPay_SDK-v-4.1.0')
-    implementation project(':shurjopaysdk-v1.1')
-
 }

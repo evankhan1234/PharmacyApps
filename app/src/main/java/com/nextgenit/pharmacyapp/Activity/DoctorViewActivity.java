@@ -40,12 +40,7 @@ import com.sm.shurjopaysdk.model.RequiredDataModel;
 import com.sm.shurjopaysdk.model.TransactionInfo;
 import com.sm.shurjopaysdk.payment.ShurjoPaySDK;
 import com.sm.shurjopaysdk.utils.SPayConstants;
-import com.softbd.aamarpay.PayByAamarPay;
-import com.softbd.aamarpay.interfaces.OnPaymentRequestListener;
-import com.softbd.aamarpay.model.OptionalFields;
-import com.softbd.aamarpay.model.PaymentResponse;
-import com.softbd.aamarpay.model.RequiredFields;
-import com.softbd.aamarpay.utils.Params;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -123,7 +118,7 @@ public class DoctorViewActivity extends AppCompatActivity {
                 SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
                 Date date1 = new Date(System.currentTimeMillis());
                 String currentDate = formatter.format(date1);
-                RequiredDataModel requiredDataModel = new RequiredDataModel("bcaidltd", "onrBlzu04wqA", "BCL"+currentDate, Double.parseDouble(amount));
+                RequiredDataModel requiredDataModel = new RequiredDataModel("bcaidltd", "onrBlzu04wqA", "BCL"+currentDate, Double.parseDouble(amount),"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJiY2FpZGx0ZCIsImV4cCI6MTYwNDMxNzk1OCwibmFtZSI6ImJjYWlkbHRkIn0.FIhS_mU73yqkjSa1rW2ARfPSBfybH1DfakrOsik4BYg");
                 ShurjoPaySDK.getInstance().makePayment(DoctorViewActivity.this, SPayConstants.SdkType.LIVE, requiredDataModel, new PaymentResultListener() {
 
                     @Override
@@ -224,50 +219,7 @@ public class DoctorViewActivity extends AppCompatActivity {
         }));
 
     }
-    private void ammarpay() {
-        RequiredFields requiredFields = new RequiredFields(
-                patientList.patient_name,
-                "default@email.com",
-                "Address 1",
-                "City",
-                "State",
-                "1234",
-                "Country",
-                patientList.mobile1,
-                "Description",
-                amount,
-                Params.CURRENCY_BDT,
-                "A205220",
-                "bluescareaid",
-                "f16db1729e23f68380decf3fbb3c184a",
-                "https://sandbox.aamarpay.com/success.php",
-                "https://sandbox.aamarpay.com/failed.php",
-                "https://sandbox.aamarpay.com/failed.php"
-        );
-        OptionalFields optionalFields = new OptionalFields(
-                "cus address 2",
-                "cus fax",
-                "ship name",
-                "ship address1",
-                "ship address 2",
-                "ship city",
-                "ship state",
-                "ship postcode",
-                "ship country",
-                "optional string",
-                "optional string",
-                "optional string",
-                "optional string"
-        );
-        PayByAamarPay.getInstance(DoctorViewActivity.this, requiredFields, optionalFields).payNow(new OnPaymentRequestListener() {
-            @Override
-            public void onPaymentResponse(int paymentStatus, PaymentResponse paymentResponse) {
-                Log.e("paymentStatus: " ,""+ paymentStatus);
-                //Here you can view all the response in one place
-                Log.e("Response: " ,""+ new Gson().toJson(paymentResponse));
-            }
-        });
-    }
+
     private void load() {
         progress_bar.setVisibility(View.VISIBLE);
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
